@@ -3,10 +3,6 @@
   "WorkspaceRootPath": "D:\\N\u0103m 4\\.NET\\gym\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7FED96CD-1988-44A6-B28B-AC0B462F35F7}|gym\\gym.csproj|d:\\n\u0103m 4\\.net\\gym\\gym\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7FED96CD-1988-44A6-B28B-AC0B462F35F7}|gym\\gym.csproj|solutionrelative:gym\\controllers\\accountscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{7FED96CD-1988-44A6-B28B-AC0B462F35F7}|gym\\gym.csproj|d:\\n\u0103m 4\\.net\\gym\\gym\\areas\\admin\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{7FED96CD-1988-44A6-B28B-AC0B462F35F7}|gym\\gym.csproj|solutionrelative:gym\\areas\\admin\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
@@ -63,25 +59,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "AccountsController.cs",
-              "DocumentMoniker": "D:\\N\u0103m 4\\.NET\\gym\\gym\\Controllers\\AccountsController.cs",
-              "RelativeDocumentMoniker": "gym\\Controllers\\AccountsController.cs",
-              "ToolTip": "D:\\N\u0103m 4\\.NET\\gym\\gym\\Controllers\\AccountsController.cs",
-              "RelativeToolTip": "gym\\Controllers\\AccountsController.cs",
-              "ViewState": "AgIAAKoAAAAAAAAAAAAswL4AAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-12-07T14:07:21.054Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\N\u0103m 4\\.NET\\gym\\gym\\Areas\\Admin\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "gym\\Areas\\Admin\\Views\\Shared\\_Layout.cshtml",
               "ToolTip": "D:\\N\u0103m 4\\.NET\\gym\\gym\\Areas\\Admin\\Views\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "gym\\Areas\\Admin\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAAAIkAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAAAI8AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2024-12-07T14:03:49.847Z",
               "EditorCaption": ""
