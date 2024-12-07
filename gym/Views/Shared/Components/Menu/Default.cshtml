@@ -1,0 +1,42 @@
+﻿@{
+    var username = ViewBag.Username ?? "Khách";
+}
+@model IEnumerable<gym.Models.Menu>
+@{
+    <ul>
+        @foreach (var menu in Model.Where(m => m.Order < 9)) // Lấy menu chính
+        {
+            <li>
+                @if(menu.Order < 8)
+                {
+                    <a href="/@menu.Meta">@menu.MenuName</a>
+                }
+                @if (menu.Order == 8 && User?.Identity?.IsAuthenticated == false) // chưa đăng nhập
+                {
+                <a href="/@menu.Meta">@menu.MenuName</a>
+                }
+                else if (menu.Order == 8 && User?.Identity?.IsAuthenticated == true) // đã đăng nhập
+                {
+                    <a>Chào, @username</a>
+                    // Lấy submenu có Order từ 9 đến 12(khi đã đăng nhập)
+                    var subMenus = Model.Where(m => m.Order >= 9 && m.Order <= 12).ToList();
+
+                    // Kiểm tra nếu có submenu
+                    if (subMenus.Any())
+                    {
+                        <ul class="dropdown">
+                            @foreach (var subMenu in subMenus) // Lấy submenu
+                            {
+                                <li><a href="/@subMenu.Meta">@subMenu.MenuName</a></li>
+                            }
+                            <li>
+                                <a href="@Url.Action("Logout", "Accounts")">Đăng xuất</a>
+                            </li>
+                        </ul>
+                    }
+                }
+            </li>
+        }
+    
+    </ul>
+}

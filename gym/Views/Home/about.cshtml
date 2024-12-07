@@ -1,0 +1,137 @@
+﻿@{
+    ViewData["Title"] = "Giới thiệu";
+}
+<!-- Breadcrumb Section Begin -->
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Breadcrumb Section End -->
+<!-- ChoseUs Section Begin -->
+<section class="choseus-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Tại sao chọn chúng tôi?</span>
+                    <h2>Đẩy tinh thần bạn lên cao nhất</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @await Component.InvokeAsync("GetNewIndex")
+        </div>
+    </div>
+</section>
+<!-- ChoseUs Section End -->
+<!-- About US Section Begin -->
+<section class="aboutus-section">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 p-0">
+                <div class="about-video set-bg" data-setbg=@Url.Content("~/img/about-us.jpg")>
+                    <a href="https://www.youtube.com/watch?v=EzKkl64rRbM" class="play-btn video-popup">
+                        <i class="fa fa-caret-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 p-0">
+                <div class="about-text">
+                    <div class="section-title">
+                        <span>Về chúng tôi</span>
+                        <h2>Chúng tôi đã làm được</h2>
+                    </div>
+                    <div class="at-desc">
+                        <p>
+                            Chào mừng bạn đến với dịch vụ của chúng tôi! Với đội ngũ chuyên gia giàu kinh nghiệm, chúng tôi cam kết mang đến cho bạn trải nghiệm tuyệt vời nhất. Chúng tôi luôn nỗ lực để cải thiện sức khỏe và tinh thần của bạn thông qua những khóa tập luyện chuyên nghiệp và đầy hứng khởi. Hãy cùng chúng tôi chinh phục những mục tiêu mới và sống khỏe mạnh mỗi ngày!
+                        </p>
+                    </div>
+                    <div class="about-bar">
+                        <div class="ab-item">
+                            <p>Body building</p>
+                            <div id="bar1" class="barfiller">
+                                <span class="fill" data-percentage="80"></span>
+                                <div class="tipWrap">
+                                    <span class="tip"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ab-item">
+                            <p>Training</p>
+                            <div id="bar2" class="barfiller">
+                                <span class="fill" data-percentage="85"></span>
+                                <div class="tipWrap">
+                                    <span class="tip"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ab-item">
+                            <p>Fitness</p>
+                            <div id="bar3" class="barfiller">
+                                <span class="fill" data-percentage="75"></span>
+                                <div class="tipWrap">
+                                    <span class="tip"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- About US Section End -->
+<!-- Team Section Begin -->
+<section class="team-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="team-title">
+                    <div class="section-title">
+                        <span>Đội ngũ</span>
+                        <h2>Tập luyện với chuyên gia</h2>
+                    </div>
+                    <a href="/doi-ngu" class="primary-btn btn-normal appoinment-btn">Personal Trainer</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ts-slider owl-carousel">
+                @await Component.InvokeAsync("GetPtIndex")
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Team Section End -->
+<!-- Banner Section Begin -->
+@if (!User.Identity.IsAuthenticated)
+{
+    <section class="banner-section set-bg" data-setbg=@Url.Content("~/img/banner-bg.jpg")>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="bs-text">
+                        <h2>ĐĂNG KÝ TÀI KHOẢN NGAY!</h2>
+                        <div class="bt-tips">Để nhận nhiều ưu đãi hấp dẫn</div>
+                        <a href="/dang-ky" class="primary-btn  btn-normal">Đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<!-- Banner Section End -->
+<!-- Testimonial Section Begin -->
+<section class="testimonial-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Đánh giá</span>
+                    <h2>Khách hàng thân thiết</h2>
+                </div>
+            </div>
+        </div>
+        <div class="ts_slider owl-carousel">
+            @await Component.InvokeAsync("ClientComment")
+        </div>
+    </div>
+</section>
+<!-- Testimonial Section End -->

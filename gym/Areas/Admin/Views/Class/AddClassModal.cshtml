@@ -1,0 +1,91 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">
+                        <span class="fw-mediumbold"> Thêm mới</span>
+                        <span class="fw-light"> lớp tập </span>
+                    </h5>
+                    <button type="button" class="close" onclick="$('#addRowModal').modal('hide');" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/Admin/Class/AddClass" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group form-group">
+                                    <label>Tên lớp</label>
+                                    <input id="addName" name="ClassName" type="text" class="form-control" placeholder="Nhập tên lớp" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Chọn hình ảnh</label>
+                                    <input id="addImage" name="Image" type="file" class="form-control" accept="image/*" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                        <label>Học phí</label>
+                                    <input id="addPrice" name="Price" type="text" class="form-control" oninput="formatNumber(this)" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group form-group">
+                                    <label>Tiêu đề</label>
+                                    <input id="addTitle" name="Title" type="text" class="form-control" placeholder="Nhập tiêu đề" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="comment">Mô tả</label>
+                                    <textarea id="addDescription" name="Description" class="form-control" rows="4" placeholder="Nhập mô tả"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="comment">Chi tiết</label>
+                                    <textarea class="form-control" id="addDetail" name="Detail" rows="20" placeholder="Nhập nội dung chi tiết"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group form-group">
+                                    <label>Meta</label>
+                                    <input id="addMeta" name="Meta" type="text" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Hiển thị</label>
+                                    <select id="addHide" name="Hide" class="form-control">
+                                        <option value="1">Có</option>
+                                        <option value="0">Không</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Thứ tự</label>
+                                    <input id="addOrder" name="Order" type="number" class="form-control" placeholder="Nhập thứ tự">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary">
+                                Thêm
+                            </button>
+                            <button type="button" class="btn btn-danger" onclick="$('#addRowModal').modal('hide');">
+                                Đóng
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

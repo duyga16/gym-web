@@ -1,0 +1,79 @@
+﻿@model gym.Models.Pt
+@{
+    ViewData["Title"] = @Model.NamePt;
+}
+<!-- Breadcrumb Section Begin -->
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Breadcrumb Section End -->
+<!-- Class Details Section Begin -->
+<section class="class-details-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="class-details-text">
+                    @await Component.InvokeAsync("GetPtDetails", new { trainerId = Model.PtId })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8">
+                <div class="sidebar-option">
+                    <div class="so-latest">
+                        <h5 class="title">Tin mới nhất</h5>
+                        @await Component.InvokeAsync("GetPost")
+                    </div>
+                    <div class="so-tags">
+                        <h5 class="title">Các lớp phổ biến</h5>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "body-building" })">Body building</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "yoga" })">Yoga</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "weight-loss" })">Weightloss</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "fitness" })">Fitness</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "cardio" })">Cardio</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "boxing" })">Boxing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 p-0 m-auto">
+                <div class="blog-details-text">
+                    <div class="row"> 
+                        @await Component.InvokeAsync("FeedbackPT", new { ptId = Model.PtId })
+                        <div class="col-lg-6">
+                            <div class="leave-comment">
+                                <!-- Form bình luận cho PT -->
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <h5>Bình luận</h5>
+                                    <form method="post" asp-controller="PTs" asp-action="SubmitFeedback">
+                                        <input type="hidden" name="PtId" value="@Model.PtId" />
+                                        <input type="text" name="Title" placeholder="Tiêu đề" required />
+                                        <div>
+                                            <input type="number" name="Rating" id="Rating" min="1" max="5" placeholder="Đánh giá (1 sao đến 5 sao)" required />
+                                        </div>
+                                        <textarea name="Details" placeholder="Nội dung chi tiết" required></textarea>
+                                        @Html.AntiForgeryToken() <!-- Thêm mã CSRF -->
+                                        <button type="submit">Gửi bình luận</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <h5><a href="/dang-nhap" style="color: orange;">Đăng nhập</a> để gửi bình luận.</h5>
+                                    <form method="post">
+                                        <input type="hidden" name="PtId" value="@Model.PtId" />
+                                        <input type="text" name="Title" placeholder="Tiêu đề" required />
+                                        <div>
+                                            <input type="number" name="Rating" id="Rating" min="1" max="5" placeholder="Đánh giá (1 sao đến 5 sao)" required />
+                                        </div>
+                                        <textarea name="Details" placeholder="Nội dung chi tiết" required></textarea>
+                                    </form>
+                                }
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- SweetAlert2 CDN -->

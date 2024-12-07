@@ -1,0 +1,242 @@
+﻿@model gym.Models.User
+<!-- Controller cho cập nhật tài khoản, lịch sử hoạt động -->
+@{
+    ViewData["Title"] = "Tài khoản";
+}
+@{
+    var errorMessage = TempData["ErrorMessage"] as string;
+    var successMessage = TempData["SuccessMessage"] as string;
+    var total = (Model.Price ?? 0) + (Model.RankPrice ?? 0);
+}
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<body>
+    <div class="main-content">
+        <!-- Header -->
+        @await Component.InvokeAsync("Breadcrumb")
+        <!-- Page content -->
+        <div class="container-fluid mt--7">
+            <div class="row">
+                <div class="col-xl-4 order-xl-2 mb-5 mb-xl-0">
+                    <div class="card card-profile shadow">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-3 order-lg-2">
+                                <form asp-controller="Accounts" asp-action="UpdateProfileImage" method="post" enctype="multipart/form-data">
+                                    <div class="card-profile-image">
+                                        <label for="profileImageInput">
+                                            <img src="@Url.Content("~/img/users/" + Model.Img ?? "user.jpg")" class="rounded-circle" style="cursor:pointer;">
+                                        </label>
+                                        <input type="file" id="profileImageInput" name="ProfileImage" accept="image/*" style="display:none;">
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mt-2">Cập nhật</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
+                            <div class="d-flex justify-content-between">
+                                <a href="@Url.Action("ChangePassword", "Accounts")" class="btn btn-sm btn-info mr-4">Đổi mật khẩu</a> <!-- đổi mật khẩu -->
+                                <a href="@Url.Action("Logout", "Accounts")" class="btn btn-sm btn-info mr-4">Đăng xuất</a> <!-- đăng xuất -->
+                            </div>
+                        </div>
+                        <div class="card-body pt-0 pt-md-4">
+                            <div class="text-center">
+                                <h3>
+                                    @Model.FullName <span class="font-weight-light"></span>
+                                </h3>
+                                <div class="h5 font-weight-300">
+                                    <i class="ni location_pin mr-2"></i> @Model.Rankuser?.RankType
+                                </div>
+                                <hr class="my-4">
+                                <div>
+                                    <a href="@Url.Action("DeleteAccount", "Accounts")" class="btn btn-sm btn-default float-right">Xóa tài khoản</a> <!-- xóa tài khoản -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Thông tin tài khoản -->
+                <div class="col-xl-8 order-xl-1">
+                    <div class="card bg-secondary shadow">
+                        <div class="card-header bg-white border-0">
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <h3 class="mb-0">Thông tin tài khoản cá nhân</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form asp-action="UpdateUserInfo" method="post">
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-username">Tên tài khoản</label>
+                                                <input type="text" id="input-username" class="form-control form-control-alternative" value="@Model.UserName" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-email">Email</label>
+                                                <input type="email" id="input-email" class="form-control form-control-alternative" name="Email" value="@Model.Email">
+                                                <span asp-validation-for="Email" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-first-name">Họ và tên</label>
+                                                <input type="text" id="input-first-name" class="form-control form-control-alternative" name="FullName" value="@Model.FullName">
+                                                <span asp-validation-for="FullName" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-birth-date">Ngày sinh</label>
+                                                <input type="date" id="input-birth-date" class="form-control form-control-alternative" name="DateOfBirth" value="@Model.DateOfBirth?.ToString("yyyy-MM-dd")">
+                                                <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-phone-number">Số điện thoại</label>
+                                                <input type="tel" id="input-phone-number" class="form-control form-control-alternative" name="PhoneNumber" value="@Model.PhoneNumber">
+                                                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-gender">Giới tính</label>
+                                                <input type="text" id="input-gender" class="form-control form-control-alternative" name="Gender" value="@Model.Gender">
+                                                <span asp-validation-for="Gender" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-address">Địa chỉ</label>
+                                                <input type="text" id="input-address" class="form-control form-control-alternative" name="Addess" value="@Model.Addess">
+                                                <span asp-validation-for="Addess" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-city">Phân hạng thành viên</label>
+                                                <input type="text" id="input-city" class="form-control form-control-alternative" placeholder="@Model.Rankuser?.RankType" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">Số tiền cần thanh toán</label>
+                                                <input type="text" id="input-country" class="form-control form-control-alternative" placeholder="@String.Format("{0:N0}", total) VND" readonly>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-country">Số lớp đã đăng ký</label>
+                                                <input type="number" id="input-postal-code" class="form-control form-control-alternative" placeholder="@Model.CountClass lớp" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-info mt-4">Cập nhật thông tin</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <hr class="my-4">
+                    <!-- Lịch sử -->
+                    <div class="pl-lg-4">
+                        <div class="form-group">
+                            <label>Lớp tập đã mua</label>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tên lớp</th>
+                                        <th>Ngày mua</th>
+                                        <th>Ngày hết hạn</th>
+                                        <th>Thanh toán</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.UserClasses != null && Model.UserClasses.Any())
+                                    {
+                                        @foreach (var item in Model.UserClasses)
+                                        {
+                                            <tr>
+                                                <td>@item.Class.NameClass</td>
+                                                <td>@item.Datebegin?.ToString("dd/MM/yyyy")</td>
+                                                <td>@item.Datebegin?.AddMonths(1).ToString("dd/MM/yyyy")</td>
+                                                <td>@String.Format("{0:N0}", item.Class.Price)</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td colspan="4">Chưa có lớp học nào được đăng ký.</td></tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <label>Gói tập đã mua</label>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Tên gói</th>
+                                        <th>Ngày mua</th>
+                                        <th>Ngày hết hạn</th>
+                                        <th>Thanh toán</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>@Model.Rankuser?.MembershipType</td>
+                                        <td>@Model.Datebegin?.ToString("dd/MM/yyyy")</td>
+                                        <td>@Model.Datebegin?.AddMonths(12).ToString("dd/MM/yyyy")</td>
+                                        <td>@String.Format("{0:N0}", @Model.RankPrice)</td> <!-- Định dạng tiền tệ -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.25/dist/sweetalert2.min.js"></script>
+<script>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <text>
+                Swal.fire({
+                    icon: 'error',
+                title: 'Thất bại!',
+                text: '@Html.Raw(errorMessage)'
+                                        });
+        </text>
+    }
+
+        // Hiển thị thông báo thành công (nếu có)
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <text>
+                Swal.fire({
+                    icon: 'success',
+                title: 'Thành công!',
+                text: '@Html.Raw(successMessage)'
+                                        });
+        </text>
+    }
+</script>

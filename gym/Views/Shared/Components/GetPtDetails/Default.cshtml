@@ -1,0 +1,64 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model gym.Models.Pt
+@{
+    <div class="cd-text">
+        <div class="cd-single-item">
+            <h3>Personal Trainer</h3>
+        </div>
+    </div>
+    <div class="cd-trainer">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="cd-trainer-pic">
+                    <img src="@Url.Content("~/img/team/"+Model.Img)" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="cd-trainer-text">
+                    <div class="trainer-title">
+                        <h4>@Model.NamePt</h4>  <!-- Giả sử trong mô hình có thuộc tính Name -->
+                        <span>Gym Trainer</span>  <!-- Giả sử trong mô hình có thuộc tính Position -->
+                    </div>
+                    <div class="trainer-social">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                        <a href="#"><i class="fa fa-youtube-play"></i></a>
+                        <a href="#"><i class="fa fa-instagram"></i></a>
+                        <a href="#"><i class="fa fa-envelope-o"></i></a>
+                    </div>
+                    <ul class="trainer-info">
+                        <li><span>Họ và tên</span> @Model.NamePt</li>  <!-- Ví dụ sử dụng FullName -->
+                        <li><span>Số điện thoại</span> @Model.PhoneNumber</li>  <!-- Ví dụ sử dụng Phone -->
+                        <li><span>Email</span> @Model.Email</li>  <!-- Ví dụ sử dụng Email -->
+                        <li><span>Chiều cao</span> @Model.Height</li>  <!-- Ví dụ sử dụng Height -->
+                        <li><span>Cân nặng</span> @Model.Weight</li>  <!-- Ví dụ sử dụng Weight -->
+                        <li><span>Tuổi</span> @Model.Age</li>  <!-- Ví dụ sử dụng Age -->
+                        <li><span>Giới tính</span> @Model.Gender</li>  <!-- Ví dụ sử dụng Gender -->
+                        <li><span>Chuyên môn</span> @Model.Specialty</li>  <!-- Ví dụ sử dụng Specialty -->
+                        <li><span>Kỹ năng</span> @Model.Skills</li>  <!-- Ví dụ sử dụng Skills -->
+                        <li><span>Kinh nghiệm</span> @Model.ExperienceYears năm</li>  <!-- Ví dụ sử dụng ExperienceYears -->
+                        <li>
+                            <span>
+                                Đánh giá
+                            </span>
+                                @for (int i = 0; i < Model.Rating; i++)
+                                {
+                                    <i class="fa fa-star text-warning"></i> <!-- Sao vàng -->
+                                }
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="cd-text">
+                <div class="cd-single-item" style="text-align: justify;color: white;">
+                    <h3>Mô tả</h3>
+                    <p>
+                        @Html.Raw(Model.Descriptions)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+}

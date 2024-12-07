@@ -1,0 +1,87 @@
+﻿@model List<gym.Models.Schdule>
+@{
+    ViewData["Title"] = "Thời gian tập";
+}
+<!-- Breadcrumb Section Begin -->
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Breadcrumb Section End -->
+<!-- Class Timetable Section Begin -->
+<section class="class-timetable-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-title">
+                    <span>Lịch tập</span>
+                    <h2>Chọn thời gian cho bạn</h2>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="table-controls">
+                    <ul>
+                        <li class="active" data-tsfilter="all">Tất cả các lớp đã đăng ký</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="class-timetable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Saturday</th>
+                                <th>Sunday</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model == null || !Model.Any())
+                            {
+                                @foreach (var timeSlot in new[] { "06:00 - 08:00", "10:00 - 12:00", "1:00 - 3:00", "5:00 - 7:00", "7:00 - 9:00" })
+                                {
+                                    <tr>
+                                        <td class="class-time">@timeSlot</td>
+                                        @for (int i = 0; i < 7; i++) // 7 ngày trong tuần
+                                        {
+                                            <td class="blank-td"></td>
+                                        }
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                @foreach (var timeSlot in new[] { "06:00 - 08:00", "10:00 - 12:00", "1:00 - 3:00", "5:00 - 7:00", "7:00 - 9:00" })
+                                {
+                                    <tr>
+                                        <td class="class-time">@timeSlot</td>
+                                        @foreach (var day in new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" })
+                                        {
+                                            var schedule = Model.FirstOrDefault(s => s.DayOfWeeks == day && s.TimeSlot == timeSlot);
+                                            if (schedule != null)
+                                            {
+                                                <td class="dark-bg hover-bg ts-meta">
+                                                    <h5>@schedule.NameClass</h5>
+                                                    <span>@schedule.NamePt</span>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td class="blank-td"></td>
+                                            }
+                                        }
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Class Timetable Section End -->

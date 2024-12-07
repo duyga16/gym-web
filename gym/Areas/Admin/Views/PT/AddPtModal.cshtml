@@ -1,0 +1,136 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">
+                        <span class="fw-mediumbold"> Thêm mới</span>
+                        <span class="fw-light"> HLV </span>
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/Admin/PT/AddPT" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-group">
+                                    <label>Tên HLV</label>
+                                    <input id="addName" name="NamePT" type="text" class="form-control" placeholder="Nhập tên HLV" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Email</label>
+                                    <input id="addEmail" name="Email" type="text" class="form-control" placeholder="Nhập Email" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Số điện thoại</label>
+                                    <input id="addPhoneNumber" name="PhoneNumber" type="text" class="form-control" placeholder="Nhập SĐT" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group form-group">
+                                    <label>Chọn hình ảnh</label>
+                                    <input id="addImage" name="Image" type="file" class="form-control" accept="image/*" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Chiều cao</label>
+                                    <input id="addHeight" name="Height" type="text" class="form-control" placeholder="Nhập chiều cao" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Cân nặng</label>
+                                    <input id="addWeight" name="Weight" type="text" class="form-control" placeholder="Nhập cân nặng" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                        <label>Tuổi</label>
+                                    <input id="addAge" name="Age" type="number" class="form-control" placeholder="Nhập tuổi" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Giới tính</label>
+                                    <select id="addGender" name="Gender" class="form-control">
+                                        <option value="Nam">Nam</option>
+                                        <option value="Nữ">Nữ</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group form-group">
+                                    <label>Kỹ năng</label>
+                                    <input id="addSkills" name="Skills" type="text" class="form-control" placeholder="Nhập kỹ năng" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Chuyên môn</label>
+                                    <input id="addSpecialty" name="Specialty" type="text" class="form-control" placeholder="Nhập chuyên môn" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Năm kinh nghiệm</label>
+                                    <input id="addExperienceYears" name="ExperienceYears" type="number" class="form-control" placeholder="Nhập số năm" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="comment">Mô tả</label>
+                                    <textarea id="addDescriptions" name="Descriptions" class="form-control" rows="10" placeholder="Nhập mô tả"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group form-group">
+                                    <label>Slogan</label>
+                                    <input id="addSlogan" name="Slogan" type="text" class="form-control" placeholder="Nhập Slogan" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group form-group">
+                                    <label>Meta</label>
+                                    <input id="addMeta" name="Meta" type="text" class="form-control" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Hiển thị</label>
+                                    <select id="addHide" name="Hide" class="form-control">
+                                        <option value="1">Có</option>
+                                        <option value="0">Không</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group">
+                                    <label>Thứ tự</label>
+                                    <input id="addOrder" name="Order" type="number" class="form-control" placeholder="Nhập thứ tự">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary">
+                                Thêm
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                Đóng
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

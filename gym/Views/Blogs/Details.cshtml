@@ -1,0 +1,41 @@
+﻿@model gym.Models.News
+@{
+    ViewData["Title"] = @Model.NewsName;
+}
+
+<!-- Blog Details Hero Section Begin -->
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Blog Details Hero Section End -->
+
+<!-- Class Details Section Begin -->
+<section class="class-details-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                @await Component.InvokeAsync("GetBlogDetail", new { meta = Model.Meta, newsId = Model.NewsId })
+            </div>
+            <div class="col-lg-4 col-md-8">
+                <div class="sidebar-option">
+                    <div class="so-latest">
+                        <h5 class="title">Tin mới nhất</h5>
+                        @await Component.InvokeAsync("GetPost")
+                    </div>
+                    <div class="so-tags">
+                        <h5 class="title">Các lớp phổ biến</h5>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "body-building" })">Body building</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "yoga" })">Yoga</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "weight-loss" })">Weightloss</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "fitness" })">Fitness</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "cardio" })">Cardio</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "boxing" })">Boxing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- thay id động -->
+    <div class="container">
+        @await Component.InvokeAsync("GetSlogan", new { meta = Model.Meta, newsId = Model.NewsId })
+    </div>
+</section>
+<!-- Class Details Section End -->

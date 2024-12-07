@@ -1,0 +1,15 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<gym.Models.Gallery>
+@{
+    <div class="grid-sizer"></div>
+    @foreach (var item in Model)
+    {
+        <div class="gs-item @(item.IsWide == 1 ? "grid-wide" : "") set-bg" data-setbg="@Url.Content($"~/img/gallery/{item.LinkImg}")">
+            <a href="@Url.Content($"~/img/gallery/{item.LinkImg}")" class="thumb-icon image-popup">
+                <i class="fa fa-picture-o"></i>
+            </a>
+        </div>
+    }
+}

@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<gym.Models.Feedback>
+@{
+    int count = 0;
+    <div class="col-lg-6">
+        <div class="comment-option">
+            <h5 class="co-title">Bình luận</h5>
+            @if (!Model.Any())
+            {
+                <p>Không có phản hồi nào.</p>
+            }
+            @foreach (var feedback in Model)
+            {
+                count++;
+                if (count == 2)
+                {
+                    <div class="co-item reply-comment">
+                        <div class="co-pic">
+                            <img src="@Url.Content(feedback.User?.Img == null ? "~/img/users/user.jpg" : "~/img/users/" +feedback.User.Img)" alt="">
+                            <h5>@feedback.User?.FullName</h5> <!-- Tên của User đã comment -->
+                        </div>
+                        <div class="co-text">
+                            <p>@feedback.Details</p> <!-- Nội dung comment của User -->
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="co-item">
+                        <div class="co-pic">
+                            <img src="@Url.Content(feedback.User?.Img == null ? "~/img/users/user.jpg" : "~/img/users/" +feedback.User.Img)" alt="">
+                            <h5>@feedback.User?.FullName</h5> <!-- Tên của User đã comment -->
+                        </div>
+                        <div class="co-text">
+                            <p>@feedback.Details</p> <!-- Nội dung comment của User -->
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+}

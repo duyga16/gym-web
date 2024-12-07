@@ -1,0 +1,131 @@
+﻿@{
+    ViewData["Title"] = "Trang chủ";
+}
+<!-- Hero Section Begin -->
+<section class="hero-section">
+    <div class="hs-slider owl-carousel">
+        <div class="hs-item set-bg" data-setbg=@Url.Content("~/img/hero/hero-1.jpg")>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-6">
+                        <div class="hi-text">
+                            <span>Rèn luyện cơ thể</span>
+                            <h1>khỏe <strong>mạnh</strong> tập luyện đều đặn</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hs-item set-bg" data-setbg=@Url.Content("~/img/hero/hero-2.jpg")>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 offset-lg-6">
+                        <div class="hi-text">
+                            <span>Rèn luyện cơ thể</span>
+                            <h1>khỏe <strong>mạnh</strong> tập luyện đều đặn</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Hero Section End -->
+<!-- ChoseUs Section Begin -->
+<section class="choseus-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Tại sao chọn chúng tôi?</span>
+                    <h2>ĐẨY TINH THẦN BẠN LÊN CAO NHẤT</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @await Component.InvokeAsync("GetNewIndex")
+        </div>
+    </div>
+</section>
+<!-- ChoseUs Section End -->
+<!-- Classes Section Begin -->
+<section class="classes-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Các lớp của chúng tôi</span>
+                    <h2>ĐIỀU BẠN CẦN LÀ GÌ?</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @await Component.InvokeAsync("GetClassIndex")
+        </div>
+    </div>
+</section>
+<!-- ChoseUs Section End -->
+<!-- Banner Section Begin -->
+@if (!User.Identity.IsAuthenticated)
+{
+    <section class="banner-section set-bg" data-setbg=@Url.Content("~/img/banner-bg.jpg")>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="bs-text">
+                        <h2>ĐĂNG KÝ TÀI KHOẢN NGAY!</h2>
+                        <div class="bt-tips">Để nhận nhiều ưu đãi hấp dẫn</div>
+                        <a href="/dang-ky" class="primary-btn  btn-normal">Đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<!-- Banner Section End -->
+<!-- Pricing Section Begin -->
+<section class="pricing-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Kế hoạch</span>
+                    <h2>Hãy chọn kế hoạch tập luyện phù hợp nhất</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            @await Component.InvokeAsync("GetRankIndex")
+        </div>
+    </div>
+</section>
+<!-- Pricing Section End -->
+<!-- Gallery Section Begin -->
+<div class="gallery-section">
+    <div class="gallery">
+        @await Component.InvokeAsync("GalleryIndex")
+    </div>
+</div>
+<!-- Gallery Section End -->
+<!-- Team Section Begin -->
+<section class="team-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="team-title">
+                    <div class="section-title">
+                        <span>Đội ngũ</span>
+                        <h2>Tập luyện với chuyên gia</h2>
+                    </div>
+                    <a href="/doi-ngu" class="primary-btn btn-normal appoinment-btn">Personal Trainer</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="ts-slider owl-carousel">
+                @await Component.InvokeAsync("GetPtIndex")
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Team Section End -->

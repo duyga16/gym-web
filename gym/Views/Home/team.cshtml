@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Đội ngũ";
+}
+<!-- Breadcrumb Section Begin -->
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Breadcrumb Section End -->
+<!-- Team Section Begin -->
+<section class="team-section team-page spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="team-title">
+                    <div class="section-title">
+                        <span>Personal Trainer</span>
+                        <h2>Tập luyện với chuyên gia</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @await Component.InvokeAsync("GetPtIndex")
+        </div>
+    </div>
+</section>
+<!-- Team Section End -->

@@ -1,0 +1,16 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Kho hình ảnh";
+}
+<!-- Breadcrumb Section Begin -->
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Breadcrumb Section End -->
+<!-- Gallery Section Begin -->
+<div class="gallery-section gallery-page">
+    <div class="gallery">
+        @await Component.InvokeAsync("GalleryIndex")
+    </div>
+</div>
+<!-- Gallery Section End -->

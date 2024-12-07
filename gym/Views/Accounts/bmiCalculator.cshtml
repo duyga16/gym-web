@@ -1,0 +1,125 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model gym.Models.Healthinfo
+@{
+    ViewData["Title"] = "Chỉ số BMI";
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+@{
+    <!-- Breadcrumb Section Begin -->
+    @await Component.InvokeAsync("Breadcrumb")
+    <!-- Breadcrumb Section End -->
+    <!-- BMI Calculator Section Begin -->
+    <section class="bmi-calculator-section spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="section-title chart-title">
+                        <span>KIỂM TRA</span>
+                        <h2>BIỂU ĐỒ CHỈ SỐ BMI</h2>
+                    </div>
+                    <div class="chart-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>BMI</th>
+                                    <th>TRẠNG THÁI CƠ THỂ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="point">Dưới 18.5</td>
+                                    <td>Suy dinh dưỡng</td>
+                                </tr>
+                                <tr>
+                                    <td class="point">18.5 - 24.9</td>
+                                    <td>Khỏe mạnh</td>
+                                </tr>
+                                <tr>
+                                    <td class="point">25.0 - 29.9</td>
+                                    <td>Thừa cân</td>
+                                </tr>
+                                <tr>
+                                    <td class="point">30.0 - và hơn</td>
+                                    <td>Béo phì</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="section-title chart-calculate-title">
+                        <span>Kiểm tra chỉ số cơ thể</span>
+                        <h2>TÍNH CHỈ SỐ BMI</h2>
+                    </div>
+                    <div class="chart-calculate-form">
+                        <p>
+                            @if (@Model.Bmi != null)
+                            {
+                                <text>
+                                    Chỉ số BMI của bạn: <strong>@Model.Bmi</strong> <br />
+                                </text>
+                                @if (@Model.Bmi <= Convert.ToDecimal(18.5))
+                                {
+                                    <text>Đây là mức BMI thấp, cho thấy cơ thể thiếu hụt năng lượng, dinh dưỡng, dễ dẫn đến các vấn đề sức khỏe như suy giảm miễn dịch, yếu cơ, và nguy cơ mắc bệnh cao hơn.</text>
+                                }
+                                else if (Convert.ToDecimal(18.5) < @Model.Bmi && @Model.Bmi <= Convert.ToDecimal(24.9))
+                                {
+                                    <text>Đây là khoảng BMI lý tưởng, biểu thị cơ thể cân đối, sức khỏe tốt, ít nguy cơ mắc các bệnh liên quan đến cân nặng như tiểu đường, tim mạch.</text>
+                                }
+                                else if (Convert.ToDecimal(25) <= @Model.Bmi && @Model.Bmi <= Convert.ToDecimal(29.9))
+                                {
+                                    <text>Mức BMI này cho thấy cơ thể có dấu hiệu tích tụ mỡ thừa, làm tăng nguy cơ mắc các bệnh như cao huyết áp, tiểu đường type 2, và vấn đề xương khớp.</text>
+                                }
+                                else if (@Model.Bmi >= 30)
+                                {
+                                    <text>BMI trong khoảng này cho thấy cơ thể bị béo phì, dễ gặp các bệnh nghiêm trọng như bệnh tim mạch, tiểu đường, ngưng thở khi ngủ, và các vấn đề sức khỏe nghiêm trọng khác.</text>
+                                }
+                            }
+                            else
+                            {
+                                <text>Bạn chưa tính toán chỉ số BMI. Hãy nhập thông tin để tính toán!</text>
+                            }
+                        </p>
+                        <form asp-action="bmiCalculator" method="post">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <input type="text" name="Height" placeholder="Chiều cao / cm" required />
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" name="Weight" placeholder="Cân nặng / kg" required />
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" name="Age" placeholder="Tuổi" required />
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" name="Gender" placeholder="Giới tính" required />
+                                </div>
+                                <div class="col-lg-12">
+                                    <button type="submit">Tính toán BMI</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- BMI Calculator Section End -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.25/dist/sweetalert2.min.js"></script>
+    <script>
+        // Hiển thị thông báo thành công (nếu có)
+        @if (!string.IsNullOrEmpty(successMessage))
+        {
+            <text>
+                    Swal.fire({
+                        icon: 'success',
+                    title: 'Thành công!',
+                    text: '@Html.Raw(successMessage)'
+                                            });
+            </text>
+        }
+    </script>
+
+}

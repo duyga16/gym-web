@@ -1,0 +1,421 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "PT";
+}
+@model IEnumerable<gym.Models.Pt>
+@{
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Quản lí Personal Trainer</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="/Admin">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Dữ liệu</h4>
+                            <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal" data-bs-target="#addRowModal">
+                                <i class="fa fa-plus"></i>
+                                Thêm cột mới
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Thêm dòng mới -->
+                        @await Html.PartialAsync("AddPtModal")
+                        <!-- End Thêm dòng mới -->
+                        <!-- bảng dataTables -->
+                        <div class="table-responsive">
+                            <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table id="add-row" class="display table table-striped table-hover dataTable" role="grid" aria-describedby="add-row_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th style="width: 116px;">ID</th>
+                                                    <th style="width: 91.1875px;">Tên HLV</th>
+                                                    <th style="width: 91.1875px;">Email</th>
+                                                    <th style="width: 91.1875px;">SĐT</th>
+                                                    <th style="width: 91.1875px;">Hình ảnh</th>
+                                                    <th style="width: 91.1875px;">Chiều cao</th>
+                                                    <th style="width: 91.1875px;">Cân nặng</th>
+                                                    <th style="width: 91.1875px;">Tuổi</th>
+                                                    <th style="width: 91.1875px;">Giới tính</th>
+                                                    <th style="width: 91.1875px;">Kỹ năng</th>
+                                                    <th style="width: 91.1875px;">Chuyên môn</th>
+                                                    <th style="width: 91.1875px;">Kinh nghiệm</th>
+                                                    <th style="width: 91.1875px;">Đánh giá</th>
+                                                    <th style="width: 91.1875px;">Mô tả</th>
+                                                    <th style="width: 91.1875px;">Slogan</th>
+                                                    <th style="width: 91.1875px;">Meta</th>
+                                                    <th style="width: 91.1875px;">Hiển thị</th>
+                                                    <th style="width: 91.1875px;">Thứ tự</th>
+                                                    <th style="width: 91.1875px;">Ngày tạo</th>
+                                                    <th style="width: 120.7px; text-align: center;">Cập nhật</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th rowspan="1" colspan="1">ID</th>
+                                                    <th rowspan="1" colspan="1">Tên HLV</th>
+                                                    <th rowspan="1" colspan="1">Email</th>
+                                                    <th rowspan="1" colspan="1">SĐT</th>
+                                                    <th rowspan="1" colspan="1">Hình ảnh</th>
+                                                    <th rowspan="1" colspan="1">Chiều cao</th>
+                                                    <th rowspan="1" colspan="1">Cân nặng</th>
+                                                    <th rowspan="1" colspan="1">Tuổi</th>
+                                                    <th rowspan="1" colspan="1">Giới tính</th>
+                                                    <th rowspan="1" colspan="1">Kỹ năng</th>
+                                                    <th rowspan="1" colspan="1">Chuyên môn</th>
+                                                    <th rowspan="1" colspan="1">Kinh nghiệm</th>
+                                                    <th rowspan="1" colspan="1">Đánh giá</th>
+                                                    <th rowspan="1" colspan="1">Mô tả</th>
+                                                    <th rowspan="1" colspan="1">Slogan</th>
+                                                    <th rowspan="1" colspan="1">Meta</th>
+                                                    <th rowspan="1" colspan="1">Hiển thị</th>
+                                                    <th rowspan="1" colspan="1">Thứ tự</th>
+                                                    <th rowspan="1" colspan="1">Ngày tạo</th>
+                                                    <th rowspan="1" colspan="1" style="text-align: center;">Cập nhật</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                @foreach (var Pts in Model)
+                                                {
+                                                    <tr role="row" class="odd">
+                                                        <td>@Pts.PtId</td>
+                                                        <td>@Pts.NamePt</td>
+                                                        <td>@Pts.Email</td>
+                                                        <td>@Pts.PhoneNumber</td>
+                                                        <td>
+                                                            <img src="~/img/team/@Pts.Img" alt="PT Image" width="100" height="100" />
+                                                        </td>
+                                                        <td>@Pts.Height</td>
+                                                        <td>@Pts.Weight</td>
+                                                        <td>@Pts.Age</td>
+                                                        <td>@Pts.Gender</td>
+                                                        <td>@Pts.Skills</td>
+                                                        <td>@Pts.Specialty</td>
+                                                        <td>@Pts.ExperienceYears</td>
+                                                        <td>@Pts.Rating</td>
+                                                        <td>@(Pts.Descriptions?.Length > 20 ? Pts.Descriptions.Substring(0, 20) + "..." : Pts.Descriptions)</td>
+                                                        <td>@(Pts.Slogan?.Length > 20 ? Pts.Slogan.Substring(0, 20) + "..." : Pts.Slogan)</td>
+                                                        <td>@Pts.Meta</td>
+                                                        <td>@(Pts.Hide == 1 ? "Có" : "Không")</td>
+                                                        <td>@Pts.Order</td>
+                                                        <td>@(Pts.Datebegin.HasValue ? Pts.Datebegin.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                                                        <td>
+                                                            <div class="form-button-action">
+                                                                <button type="button" class="btn btn-link btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewPTModal-@Pts.PtId">
+                                                                    <i class="fa fa-exclamation-circle"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-link btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#editPTModal-@Pts.PtId">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-link btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#deletePTModal-@Pts.PtId">
+                                                                    <i class="fa fa-times"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- END bảng dataTables -->
+
+                                                    <!-- Modal hiển thị thông tin chi tiết -->
+                                                    <div class="modal fade" id="viewPTModal-@Pts.PtId" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header border-0">
+                                                                    <h5 class="modal-title">Chi tiết HLV cá nhân</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p><strong>Tên HLV:</strong> @Pts.NamePt</p>
+                                                                    <p><strong>Email:</strong> @Pts.Email</p>
+                                                                    <p><strong>Số điện thoại:</strong> @Pts.PhoneNumber</p>
+                                                                    <p><strong>Hình ảnh:</strong> <img src="~/img/team/@Pts.Img" alt="PT Image" width="100" height="100" /></p>
+                                                                    <p><strong>Chiều cao:</strong> @Pts.Height</p>
+                                                                    <p><strong>Cân nặng:</strong> @Pts.Weight</p>
+                                                                    <p><strong>Tuổi:</strong> @Pts.Age</p>
+                                                                    <p><strong>Giới tính:</strong> @Pts.Gender</p>
+                                                                    <p><strong>Kỹ năng:</strong> @Pts.Skills</p>
+                                                                    <p><strong>Chuyên môn:</strong> @Pts.Specialty</p>
+                                                                    <p><strong>Năm kinh nghiệm:</strong> @Pts.ExperienceYears</p>
+                                                                    <p><strong>Đánh giá:</strong> @Pts.Rating</p>
+                                                                    <p><strong>Mô tả:</strong> @Html.Raw(Pts.Descriptions)</p>
+                                                                    <p><strong>Slogan:</strong> @Pts.Slogan</p>
+                                                                    <p><strong>Meta:</strong> @Pts.Meta</p>
+                                                                    <p><strong>Hiển thị:</strong> @(Pts.Hide == 1 ? "Có" : "Không")</p>
+                                                                    <p><strong>Thứ tự:</strong> @Pts.Order</p>
+                                                                    <p><strong>Ngày tạo:</strong> @(Pts.Datebegin.HasValue ? Pts.Datebegin.Value.ToString("dd/MM/yyyy") : "N/A")</p>
+                                                                </div>
+                                                                <div class="modal-footer border-0">
+                                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END Modal hiển thị thông tin chi tiết -->
+
+                                                    <!-- Modal chỉnh sửa thông tin chi tiết -->
+                                                    <div class="modal fade" id="editPTModal-@Pts.PtId" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header border-0">
+                                                                    <h5 class="modal-title">Chỉnh sửa thông tin PT</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="/Admin/PT/EditPT" method="post" enctype="multipart/form-data">
+                                                                        <input type="hidden" id="editPtId" name="PtId" value="@Pts.PtId" />
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Tên HLV</label>
+                                                                                    <input id="editName-@Pts.PtId" name="NamePt" type="text" class="form-control" value="@Pts.NamePt" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Email</label>
+                                                                                    <input id="editEmail" name="Email" type="text" class="form-control" value="@Pts.Email" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Số điện thoại</label>
+                                                                                    <input id="editPhoneNumber" name="PhoneNumber" type="text" class="form-control" value="@Pts.PhoneNumber" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <!-- Hiển thị hình ảnh hiện tại -->
+                                                                                    <div>
+                                                                                        @if (!string.IsNullOrEmpty(Pts.Img))
+                                                                                        {
+                                                                                            <img src="~/img/team/@Pts.Img" alt="Hình ảnh PT" width="100" height="100" />
+                                                                                        }
+                                                                                    </div>
+                                                                                    <!-- Input file cho người dùng chọn hình ảnh mới -->
+                                                                                    <input id="editImage" name="Img" type="file" class="form-control" accept="image/*">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Chiều cao</label>
+                                                                                    <input id="editHeight" name="Height" type="text" class="form-control" value="@Pts.Height" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Cân nặng</label>
+                                                                                    <input id="editWeight" name="Weight" type="text" class="form-control" value="@Pts.Weight" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Tuổi</label>
+                                                                                    <input id="editAge" name="Age" type="number" class="form-control" value="@Pts.Age" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Giới tính</label>
+                                                                                    <select id="editGender" name="Gender" class="form-control">
+                                                                                        <option value="Nam" @(Pts.Gender.Equals("Nam") ? "selected" : "")>Nam</option>
+                                                                                        <option value="Nữ" @(Pts.Gender.Equals("Nữ") ? "selected" : "")>Nữ</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Kỹ năng</label>
+                                                                                    <input id="editSkills" name="Skills" type="text" class="form-control" value="@Pts.Skills" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Chuyên môn</label>
+                                                                                    <input id="editSpecialty" name="Specialty" type="text" class="form-control" value="@Pts.Specialty" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Năm kinh nghiệm</label>
+                                                                                    <input id="editExperienceYears" name="ExperienceYears" type="number" class="form-control" value="@Pts.ExperienceYears" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="comment">Mô tả</label>
+                                                                                    <textarea id="editDescriptions-@Pts.PtId" name="Descriptions" class="form-control" rows="16">@Html.Raw(Pts.Descriptions)"</textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Slogan</label>
+                                                                                    <input id="editSlogan" name="Slogan" type="text" class="form-control" value="@Pts.Slogan" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Meta</label>
+                                                                                    <input id="editMeta-@Pts.PtId" name="Meta" type="text" class="form-control" value="@Pts.Meta" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Hiển thị</label>
+                                                                                    <select name="Hide" class="form-control">
+                                                                                        <option value="1" @(Pts.Hide == 1 ? "selected" : "")>Có</option>
+                                                                                        <option value="0" @(Pts.Hide == 0 ? "selected" : "")>Không</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Thứ tự</label>
+                                                                                    <input id="editOrder" name="Order" type="number" class="form-control" value="@Pts.Order">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer border-0">
+                                                                            <button type="submit" class="btn btn-primary">
+                                                                                Thêm
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                                                Đóng
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END Modal chỉnh sửa thông tin chi tiết -->
+
+                                                    <!-- Modal Xác nhận xóa -->
+                                                    <div class="modal fade" id="deletePTModal-@Pts.PtId" tabindex="-1" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteMenuModalLabel">Xác nhận xóa</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Bạn có chắc chắn muốn xóa menu: **@Pts.NamePt**?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                    <form method="post" action="/Admin/PT/Delete">
+                                                                        <input type="hidden" name="PtId" value="@Pts.PtId" />
+                                                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END Modal Xác nhận xóa -->
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END bảng dataTables -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    // ckeditor
+    @section Scripts {
+        <script src="~/admin/ckfinder/ckfinder.js"></script>
+        <script src="~/admin/ckeditor/ckeditor.js"></script>
+        <script>
+            if (document.getElementById('addDescriptions')) {
+                CKEDITOR.replace('addDescriptions', {
+                    filebrowserBrowseUrl: '/admin/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/Admin/PT/ckfinder/connector',
+                    filebrowserImageUploadUrl: '/Admin/PT/ckfinder/connector'
+                });
+            }
+        </script>
+        @foreach (var pts in Model)
+        {
+            <script>
+                if (document.getElementById('editDescriptions-@pts.PtId')) {
+                    CKEDITOR.replace('editDescriptions-@pts.PtId', {
+                        filebrowserBrowseUrl: '/admin/ckfinder/ckfinder.html',
+                        filebrowserUploadUrl: '/Admin/PT/ckfinder/connector',
+                        filebrowserImageUploadUrl: '/Admin/PT/ckfinder/connector'
+                    });
+                }
+            </script>
+        }
+    }
+
+    
+    <script>
+        // thao tác trên table
+        $(function () {
+            $('#add-row').DataTable({
+                "pageLength": 10,  // Số dòng mặc định
+                "lengthMenu": [10, 25, 50, 100],  // Các lựa chọn số dòng
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng",
+                    "zeroRecords": "Không có dữ liệu",
+                    "info": "Hiển thị từ _START_ đến _END_ trên tổng số _TOTAL_ dòng",
+                    "infoEmpty": "Không có dữ liệu",
+                    "infoFiltered": "(tìm từ tổng cộng _MAX_ dòng)",
+                    "search": "Tìm kiếm:",
+                    "paginate": {
+                        "previous": "Trước",  // Thay "Previous" thành "Trước"
+                        "next": "Sau"         // Thay "Next" thành "Sau"
+                    }
+                }
+            });
+        });
+
+        // Lắng nghe sự kiện thay đổi trên ô nhập tên
+        function generateSlug(inputId, outputId) {
+            document.getElementById(inputId).addEventListener('input', function () {
+                var nameValue = this.value;
+
+                // Chuyển thành dạng slug
+                var metaValue = nameValue
+                    .normalize('NFD') // Chuẩn hóa chuỗi thành dạng ký tự cơ bản
+                    .replace(/[\u0300-\u036f]/g, '') // Loại bỏ dấu (cho tiếng Việt, ký tự Unicode)
+                    .toLowerCase() // Chuyển chữ thường
+                    .replace(/\s+/g, '-') // Thay khoảng trắng thành dấu gạch ngang
+                    .replace(/[^a-z0-9\-]/g, '') // Loại bỏ ký tự không hợp lệ
+                    .trim(); // Loại bỏ khoảng trắng thừa đầu/cuối
+
+                // Cập nhật giá trị cho ô Meta
+                document.getElementById(outputId).value = metaValue;
+            });
+        }
+        // Áp dụng cho ID 'addName' và 'addMeta'
+        generateSlug('addName', 'addMeta');
+
+    </script>
+
+    // Gọi hàm generateSlug cho mỗi cặp input `Name` và `Meta` trong vòng lặp
+    @foreach (var pt in Model)
+    {
+        <script>
+            generateSlug('editName-@pt.PtId', 'editMeta-@pt.PtId');
+        </script>
+    }
+}

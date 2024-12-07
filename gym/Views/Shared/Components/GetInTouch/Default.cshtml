@@ -1,0 +1,25 @@
+﻿@model gym.Models.User
+@{
+    <div class="row">
+        <div class="col-md-4">
+            <div class="gt-text">
+                <i class="fa fa-map-marker"></i>
+                <p>@Model.Addess</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="gt-text">
+                <i class="fa fa-mobile"></i>
+                <ul>
+                    <li>@Model.PhoneNumber | 0357798119</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="gt-text email">
+                <i class="fa fa-envelope"></i>
+                <p>@Model.Email</p>
+            </div>
+        </div>
+    </div>
+}

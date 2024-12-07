@@ -1,0 +1,25 @@
+﻿@model List<gym.Models.News> // Đảm bảo đúng không gian tên của model BlogPost
+@{
+    @foreach (var blog in Model)
+    {
+        <div class="blog-item">
+            <div class="bi-pic">
+                <img src="@Url.Content("~/img/blogNew/"+blog.Img)" alt="">
+            </div>
+            <div class="bi-text">
+                <h5>
+                    <a href="su-kien/@blog.subMeta">
+                        @blog.Title
+                    </a>
+                </h5>
+                <ul>
+                    <li>by Duyga</li>
+                    <li>@(blog.Datebegin.HasValue ? blog.Datebegin.Value.ToString("dd/MM/yyyy") : "N/A")</li>
+                </ul>
+                <p style="text-align: justify;">
+                    @blog.Script
+                </p>
+            </div>
+        </div>
+    }
+}

@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<gym.Models.Pt>
+@{
+    @foreach (var pt in Model)
+    {
+        <div class="col-lg-4">
+            <div class="ts-item set-bg" data-setbg="@Url.Content("~/img/team/" + pt.Img)">
+                <div class="ts_text">
+                    <a href="doi-ngu/@pt.Meta">
+                        <h4>@pt.NamePt</h4>
+                </a>
+                    <span>@pt.Specialty</span>
+                </div>
+            </div>
+        </div>
+    }
+}

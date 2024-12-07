@@ -1,0 +1,58 @@
+﻿@model gym.ViewModels.VerifyOtpViewModel
+@{
+    Layout = null;
+}
+@{
+    ViewData["Title"] = "Xác thực mã OTP";
+}
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/css/login.css" />
+</head>
+
+<body>
+    <div class="header">
+        <a href="/trang-chu">
+            Trang chủ
+        </a>
+    </div>
+    <div class="main_div">
+        <div class="title">Xác thực mã OTP</div>
+        <p>Nhập mã OTP đã được gửi tới email: <strong>@Model.Email</strong></p>
+
+        <form asp-action="VerifyOtp" method="post">
+            <div class="input_box">
+                <input type="text" asp-for="Otp" placeholder="Nhập mã OTP" required />
+                <div class="icon"><i class="fas fa-key"></i></div>
+                <span asp-validation-for="Otp" class="text-danger"></span>
+            </div>
+
+            <input type="hidden" asp-for="Email" />
+
+            <div class="input_box button">
+                <input type="submit" value="Xác nhận" />
+            </div>
+
+            <div class="sign_up">
+                Không nhận được mã? <a href="/quen-mat-khau">Gửi lại mã OTP</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+<style>
+    .text-danger {
+        color: red;
+        font-size: 12px;
+        font-weight: bold;
+    }
+</style>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/dist/jquery.validate.unobtrusive.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>

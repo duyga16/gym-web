@@ -1,0 +1,45 @@
+﻿@model gym.Models.News
+@{
+    <div class="blog-details-text">
+        <div class="blog-details-title" style="text-align: justify;">
+            <h5>@Model?.Title</h5>
+            <p>
+                @Model?.Descriptions 
+            </p>
+        </div>
+        <div class="blog-details-pic">
+            @if (@Model?.Meta?.Equals("gioi-thieu") ?? false) // Cung cấp giá trị mặc định là false
+            {
+                <img src="@Url.Content("~/img/gioithieu/" + @Model.Img)" alt="">
+            }
+            else if (@Model?.Meta?.Equals("su-kien") ?? false) // Cung cấp giá trị mặc định là false
+            {
+                <div class="blog-details-pic-item">
+                    <img src="@Url.Content("~/img/blogNew/detail/" + @Model.Img.Split('.')[0] + "-1.jpg")" alt="">
+                </div>
+                <div class="blog-details-pic-item">
+                    <img src="@Url.Content("~/img/blogNew/detail/" + @Model.Img.Split('.')[0] + "-2.jpg")" alt="">
+                </div>
+            }
+            else if (@Model?.Meta?.Equals("tin-tuc") ?? false) // Cung cấp giá trị mặc định là false
+            {
+                <div class="blog-details-pic-item">
+                    <img src="@Url.Content("~/img/latestNews/detail/" + @Model.Img.Split('.')[0] + "-1.jpg")" alt="">
+                </div>
+                <div class="blog-details-pic-item">
+                    <img src="@Url.Content("~/img/latestNews/detail/" + @Model.Img.Split('.')[0] + "-2.jpg")" alt="">
+                </div>
+            }
+            else if (@Model?.Meta?.Equals("dich-vu") ?? false)
+            {
+                <img src="@Url.Content("~/img/service/detail/" + @Model.Img.Split('.')[0] + "-1.jpg")" alt="">
+            }
+        </div>
+        <div class="blog-details-title" style="text-align: justify; color: white;">
+            <h5>@Model?.Slogan</h5>
+            <p>
+                @Html.Raw(Model?.Detail)
+            </p>
+        </div>
+    </div>
+}

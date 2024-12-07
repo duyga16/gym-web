@@ -1,0 +1,42 @@
+﻿@model gym.Models.Class
+@{
+    ViewData["Title"] = @Model.NameClass;
+}
+<!-- Breadcrumb Section Begin -->
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Breadcrumb Section End -->
+<!-- Class Details Section Begin -->
+<section class="class-details-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                @await Component.InvokeAsync("ClassDetails", new { id = Model.ClassId })
+            </div>
+            <div class="col-lg-4 col-md-8"> 
+                <div class="sidebar-option">
+                    @await Component.InvokeAsync("ClassList")
+                        <div class="so-latest">
+                            <h5 class="title">Tin mới nhất</h5>
+                            @await Component.InvokeAsync("GetPost")
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        @await Component.InvokeAsync("GetSchedule", new { classId = Model.ClassId })
+    </div>
+</section>
+<!-- Class Details Section End -->
+<style>
+    .btn-orange {
+        background-color: orange; /* Màu nền cam */
+        color: white; /* Màu chữ trắng */
+        border: none; /* Bỏ viền */
+    }
+
+        .btn-orange:hover {
+            background-color: darkorange; /* Màu nền khi hover */
+        }
+</style>
+

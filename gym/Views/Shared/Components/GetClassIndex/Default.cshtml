@@ -1,0 +1,44 @@
+﻿@model IEnumerable<gym.Models.Class>
+@{
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        // Kiểm tra điều kiện cho cột 4
+        if (i < 3) // Chỉ cho 3 lớp đầu tiên vào cột 4
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="class-item">
+                    <a href="@Url.Action("Details", "Classes", new { meta = Model.ElementAt(i).Meta})">
+                        <div class="ci-pic">
+                            <img src="@Url.Content($"~/img/classes/{Model.ElementAt(i).Img}")" alt="@Model.ElementAt(i).NameClass">
+                        </div>
+                        <div class="ci-text">
+                            <span>@Model.ElementAt(i).NameClass</span>
+                            <h5>@Model.ElementAt(i).Title</h5>
+                            <i class="fa fa-angle-right"></i>
+                        </div>
+                    </a>
+                </div>   
+            </div>
+        }
+        // Điều kiện cho cột 6
+        else // Còn lại sẽ vào cột 6
+        {
+            <div class="col-lg-6">
+                <div class="class-item">
+                    <div class="class-item">
+                        <a href="@Url.Action("Details", "Classes", new { meta = Model.ElementAt(i).Meta})">
+                            <div class="ci-pic">
+                                <img src="@Url.Content($"~/img/classes/{Model.ElementAt(i).Img}")" alt="@Model.ElementAt(i).NameClass">
+                            </div>
+                            <div class="ci-text">
+                                <span>@Model.ElementAt(i).NameClass</span>
+                                <h5>@Model.ElementAt(i).Title</h5>
+                                <i class="fa fa-angle-right"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+}

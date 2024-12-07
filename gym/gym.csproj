@@ -1,0 +1,59 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Models\Database\**" />
+    <Compile Remove="wwwroot\admin\assets\ckeditor5\**" />
+    <Compile Remove="wwwroot\admin\assets\ckeditor\**" />
+    <Compile Remove="wwwroot\Source\**" />
+    <Content Remove="Models\Database\**" />
+    <Content Remove="wwwroot\admin\assets\ckeditor5\**" />
+    <Content Remove="wwwroot\admin\assets\ckeditor\**" />
+    <Content Remove="wwwroot\Source\**" />
+    <EmbeddedResource Remove="Models\Database\**" />
+    <EmbeddedResource Remove="wwwroot\admin\assets\ckeditor5\**" />
+    <EmbeddedResource Remove="wwwroot\admin\assets\ckeditor\**" />
+    <EmbeddedResource Remove="wwwroot\Source\**" />
+    <None Remove="Models\Database\**" />
+    <None Remove="wwwroot\admin\assets\ckeditor5\**" />
+    <None Remove="wwwroot\admin\assets\ckeditor\**" />
+    <None Remove="wwwroot\Source\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="MailKit" Version="4.8.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="8.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="wwwroot\admin\ckfinder\App_Data\" />
+    <Folder Include="wwwroot\admin\ckfinder\src\CKFinder.Connector.WebApp\userfiles\" />
+    <Folder Include="wwwroot\admin\ckfinder\userfiles\" />
+    <Folder Include="wwwroot\admin\uploads\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\admin\ckfinder\src\CKFinder.Connector.Plugin.DiskQuota\CKFinder.Connector.Plugin.DiskQuota.csproj" />
+    <None Include="wwwroot\admin\ckfinder\src\CKFinder.Connector.Plugin.GetFileInfo\CKFinder.Connector.Plugin.GetFileInfo.csproj" />
+    <None Include="wwwroot\admin\ckfinder\src\CKFinder.Connector.Plugin.UserActionsLogger\CKFinder.Connector.Plugin.UserActionsLogger.csproj" />
+    <None Include="wwwroot\admin\ckfinder\src\CKFinder.Connector.Plugin.Watermark\CKFinder.Connector.Plugin.Watermark.csproj" />
+    <None Include="wwwroot\admin\ckfinder\src\CKFinder.Connector.Samples.sln" />
+    <None Include="wwwroot\admin\ckfinder\src\CKFinder.Connector.WebApp\CKFinder.Connector.WebApp.csproj" />
+    <None Include="wwwroot\admin\ckfinder\src\CKFinder.Connector.WebApp\CKFinder.Connector.WebApp.csproj.user" />
+    <None Include="wwwroot\admin\ckfinder\src\CKFinder.Connector.WebApp\Properties\PublishProfiles\FolderProfile.pubxml.user" />
+  </ItemGroup>
+
+</Project>

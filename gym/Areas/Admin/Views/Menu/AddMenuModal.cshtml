@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">
+                        <span class="fw-mediumbold"> Thêm mới</span>
+                        <span class="fw-light"> Menu </span>
+                    </h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="/Admin/Menu/AddMenu" method="post">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group form-group-default">
+                                    <label>Tên menu</label>
+                                    <input id="addName" name="MenuName" type="text" class="form-control" placeholder="Nhập tên menu" required>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div class="form-group form-group-default">
+                                    <label>Meta</label>
+                                    <input id="addMeta" name="Meta" type="text" class="form-control" placeholder="Tên meta" required readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6 pe-0">
+                                <div class="form-group form-group-default">
+                                    <label>Hiển thị</label>
+                                    <select id="addHide" name="Hide" class="form-control">
+                                        <option value="1">Có</option>
+                                        <option value="0">Không</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group form-group-default">
+                                    <label>Thứ tự</label>
+                                    <input id="addOrder" name="Order" type="number" class="form-control" placeholder="Nhập thứ tự" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-0">
+                            <button type="submit" class="btn btn-primary">
+                                Thêm
+                            </button>
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                Đóng
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+}

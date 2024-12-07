@@ -1,0 +1,28 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<gym.Models.News>
+@{
+    int index = 1; // Biến để theo dõi chỉ số
+}
+@{
+    @foreach (var service in Model)
+    {
+        <div class="col-lg-3 order-lg-@index col-md-6 p-0">
+            <div class="ss-pic">
+                <img src="@Url.Content("~/img/service/" + service.Img)" alt="">
+            </div>
+        </div>   
+        index++;
+        <a href="@Url.Action("Details", "Blogs", new { meta = "dich-vu", subMeta = service.subMeta})">
+            <div class="col-lg-3 order-lg-@index col-md-6 p-0">
+                <div class="ss-text">
+                    <h4>@service.NewsName</h4>
+                    <p style="text-align: justify;">@service.Script</p>
+                    <a href="@Url.Action("Details", "Blogs", new { meta = "dich-vu", subMeta = service.subMeta})">Chi tiết</a>
+                </div>
+            </div>
+        </a>
+        index++; // Tăng chỉ số
+    }
+}

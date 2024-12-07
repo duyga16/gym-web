@@ -1,0 +1,205 @@
+﻿@model IEnumerable<gym.Models.Schdule>
+@{
+    var errorMessage = TempData["ErrorMessage"] as string;
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+@{
+    <div class="row">
+        <div class="col-lg-6">
+                <div class="section-title">
+                    <span>Lịch tập</span>
+                    <h2>Chọn thời gian cho bạn</h2>
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="class-timetable">
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Monday</th>
+                            <th>Tuesday</th>
+                            <th>Wednesday</th>
+                            <th>Thursday</th>
+                            <th>Friday</th>
+                            <th>Saturday</th>
+                            <th>Sunday</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var timeSlot in new[] { "06:00 - 08:00", "10:00 - 12:00", "1:00 - 3:00", "5:00 - 7:00", "7:00 - 9:00" })
+                        {
+                            <tr>
+                                <td class="class-time">@timeSlot</td>
+                                @foreach (var day in new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" })
+                                {
+                                    var schedule = Model.FirstOrDefault(s => s.DayOfWeeks == day && s.TimeSlot == timeSlot);
+                                    if (schedule != null)
+                                    {
+                                        // Kiểm tra trạng thái Hide và áp dụng logic điều kiện
+                                        if (schedule.Hide == 0)
+                                        {
+                                            // Nếu Hide == 0, khóa lịch
+                                            <td class="locked"
+                                                data-schedule-id="@schedule.ScheduleId"
+                                                style="text-decoration: line-through; color: gray;">
+                                                <h5>@schedule.NameClass</h5>
+                                                <span>@schedule.NamePt</span>
+                                                <span>@String.Format("{0:N0}", @schedule.Class.Price) VND</span>
+                                            </td>
+                                        }
+                                        else if (schedule.Hide == 1)
+                                        {
+                                            // Nếu Hide == 1, lịch có thể đăng ký
+                                            <td class="dark-bg hover-bg ts-meta"
+                                                data-schedule-id="@schedule.ScheduleId"
+                                                onclick="selectSchedule(event, @schedule.ScheduleId)">
+                                                <h5>@schedule.NameClass</h5>
+                                                <span>@schedule.NamePt</span>
+                                                <span>@String.Format("{0:N0}", @schedule.Class.Price) VND</span>
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            // Nếu Hide có giá trị khác, có thể xử lý một cách đặc biệt (nếu cần)
+                                            <td class="blank-td"></td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td class="blank-td"></td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Nút xác nhận -->
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <form method="post" asp-controller="Classes" asp-action="ConfirmSchedule" class="form-inline" id="scheduleForm">
+                    <input type="hidden" name="scheduleId" id="selected-schedule-id" />
+                    <input type="hidden" name="scheduleIds" id="selected-schedule-ids" />
+                    <button type="button" class="btn btn-orange" onclick="confirmSchedule(event)">Xác nhận đăng kí</button>
+                </form>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <a href="@Url.Action("Login", "Accounts")" class="btn btn-orange">Đăng nhập để đăng ký ngay!</a>
+            </div>
+        </div>
+    }
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.25/dist/sweetalert2.min.js"></script>
+    <style>
+        .locked {
+            cursor: not-allowed;
+            opacity: 0.6;
+            background-color:black; /* Màu nền đen */
+        }
+
+            .locked h5, .locked span {
+                color: orange; /* Màu chữ cam */
+                text-decoration: line-through; /* Đường gạch chéo */
+                text-decoration-color: orange; /* Đặt màu đường gạch thành cam */
+            }
+        .ts-meta.active {
+            font-weight: bold;
+            background-color: #f0f0f0;
+            border: 2px solid #ff9900;
+        }
+
+        .text-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+    <script>
+        // Mảng lưu các ca lịch đã chọn
+        let selectedSchedules = [];
+
+        // Chọn lịch tập
+        function selectSchedule(event, scheduleId) {
+            if (!event.target) return; // Đảm bảo event có target
+            const index = selectedSchedules.indexOf(scheduleId);
+            if (index === -1) {
+                selectedSchedules.push(scheduleId);
+                event.target.classList.add('active');
+            } else {
+                selectedSchedules.splice(index, 1);
+                event.target.classList.remove('active');
+            }
+        }
+
+        // Xác nhận đăng ký
+        function confirmSchedule(event) {
+            if (selectedSchedules.length === 0) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Chưa chọn lịch tập!',
+                    text: 'Vui lòng chọn một ca tập trước khi xác nhận.',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
+            Swal.fire({
+                title: 'Xác nhận đăng ký',
+                text: 'Bạn có chắc chắn muốn đăng ký lịch và lớp tập này?',
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonText: 'Xác nhận',
+                cancelButtonText: 'Hủy'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const scheduleInput = document.getElementById('selected-schedule-ids');
+                    if (scheduleInput) {
+                        scheduleInput.value = JSON.stringify(selectedSchedules);
+                        // Gửi form
+                        document.getElementById('scheduleForm').submit();
+                    } else {
+                        console.error("Không tìm thấy trường 'selected-schedule-ids'.");
+                    }
+                }
+            });
+            document.addEventListener('DOMContentLoaded', function () {
+                const scheduleIdsInput = document.getElementById('selected-schedule-ids');
+                console.log(scheduleIdsInput.value);  // Kiểm tra giá trị input
+            });
+        }
+         // Hiển thị thông báo lỗi (nếu có)
+        @if (!string.IsNullOrEmpty(errorMessage))
+        {
+            <text>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Thất bại!',
+                            text: '@Html.Raw(errorMessage)'
+                        });
+            </text>
+        }
+
+            // Hiển thị thông báo thành công (nếu có)
+        @if (!string.IsNullOrEmpty(successMessage))
+        {
+            <text>
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Thành công!',
+                            text: '@Html.Raw(successMessage)'
+                        });
+            </text>
+        }
+    </script>
+}

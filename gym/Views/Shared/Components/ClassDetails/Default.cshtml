@@ -1,0 +1,27 @@
+﻿@model gym.Models.Class
+@{
+    <div class="class-details-text">
+        <div class="cd-pic">
+            <img src="@Url.Content("~/img/classes/"+@Model.Img)" alt="" />
+        </div>
+        <div class="cd-text">
+            <div class="cd-single-item" style="text-align: justify;">
+                <h3>@Model.Title</h3>
+                <p>
+                    @Model.Descriptions
+                </p>
+            </div>
+            <div class="cd-single-item" style="text-align: justify; ">
+                <h3>Nội dung chi tiết</h3>
+                <p>
+                    @Html.Raw(Model.Detail)
+                </p>
+            </div>
+        </div>
+    </div>
+    <style>
+        .cd-single-item p, .cd-single-item li, .cd-single-item em, .cd-single-item strong {
+            color: white;
+        }
+    </style>
+}

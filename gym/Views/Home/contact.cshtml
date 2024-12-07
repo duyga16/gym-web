@@ -1,0 +1,73 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Liên hệ";
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+<!-- Breadcrumb Section Begin -->
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Breadcrumb Section End -->
+<!-- Contact Section Begin -->
+<section class="contact-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="section-title contact-title">
+                    <span>Liên hệ với chúng tôi</span>
+                    <h2>Chạm để tiến hành</h2>
+                </div>
+                @await Component.InvokeAsync("GetInTouch", new { userName = "duyga1602" })
+            </div>
+            <div class="col-lg-6">
+                <div class="leave-comment">
+                    <!-- Form liên hệ với Admin -->
+                    <h5>Liên hệ</h5>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form id="contactAdmin" method="post" asp-controller="Home" asp-action="ContactAdmin">
+                            <input type="text" name="UserName" placeholder="Họ tên" required />
+                            <input type="text" name="Title" placeholder="Tiêu đề" required />
+                            <input type="tel" name="PhoneNumber" placeholder="Số điện thoại" required />
+                            <textarea name="Details" placeholder="Nội dung chi tiết" required></textarea>
+                            <button type="submit">Gửi liên hệ</button>
+                        </form>
+                    }else{
+                        <form id="contactAdmin" method="post">
+                            <input type="text" name="UserName" placeholder="Họ tên" required />
+                            <input type="text" name="Title" placeholder="Tiêu đề" required />
+                            <input type="tel" name="PhoneNumber" placeholder="Số điện thoại" required />
+                            <textarea name="Details" placeholder="Nội dung chi tiết" required></textarea>
+                        </form>
+                    }
+                    
+                </div>
+            </div>
+        </div>
+        <div class="map">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4437529170056!2d106.70105597406395!3d10.77689115858613!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f194e2af7c1%3A0x85667a6af2d2aa04!2zTmjDoCBo4bqtdCBUaMOhbmggcGjhu5EgSMOgIMSQ4buZIEdp4bqleSB2w6AgdOG6rXQgTmd1ecOqbg!5e0!3m2!1svi!2s!4v1690406828425!5m2!1svi!2s"
+                    width="100%"
+                    height="550"
+                    style="border:0;"
+                    allowfullscreen=""
+                    loading="lazy">
+            </iframe>
+        </div>
+    </div>
+</section>
+<!-- Contact Section End -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.25/dist/sweetalert2.min.js"></script>
+<script>
+     // Hiển thị thông báo thành công (nếu có)
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <text>
+                    Swal.fire({
+                        icon: 'success',
+                    title: 'Thành công!',
+                    text: '@Html.Raw(successMessage)'
+                                    });
+        </text>
+    }
+</script>
+

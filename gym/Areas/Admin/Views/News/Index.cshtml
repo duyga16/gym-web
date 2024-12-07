@@ -1,0 +1,442 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "News";
+}
+@model IEnumerable<gym.Models.News>
+@{
+    <div class="page-inner">
+        <div class="page-header">
+            <h3 class="fw-bold mb-3">Quản lí tin tức - sự kiện</h3>
+            <ul class="breadcrumbs mb-3">
+                <li class="nav-home">
+                    <a href="/Admin">
+                        <i class="icon-home"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="d-flex align-items-center">
+                            <h4 class="card-title">Dữ liệu</h4>
+                            <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal" data-bs-target="#addRowModal">
+                                <i class="fa fa-plus"></i>
+                                Thêm cột mới
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- Thêm dòng mới -->
+                        @await Html.PartialAsync("AddNewsModal")
+                        <!-- End Thêm dòng mới -->
+                        <!-- bảng dataTables -->
+                        <div class="table-responsive">
+                            <div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <table id="add-row" class="display table table-striped table-hover dataTable" role="grid" aria-describedby="add-row_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th style="width: 116px;">ID</th>
+                                                    <th style="width: 91.1875px;">Tên tin tức</th>
+                                                    <th style="width: 91.1875px;">Lượt Like</th>
+                                                    <th style="width: 91.1875px;">Mô tả ngắn</th>
+                                                    <th style="width: 91.1875px;">Hình ảnh</th>
+                                                    <th style="width: 91.1875px;">Mô tả</th>
+                                                    <th style="width: 91.1875px;">Chi tiết</th>
+                                                    <th style="width: 91.1875px;">Tiêu đề</th>
+                                                    <th style="width: 91.1875px;">Slogan</th>
+                                                    <th style="width: 91.1875px;">SubMeta</th>
+                                                    <th style="width: 91.1875px;">Meta</th>
+                                                    <th style="width: 91.1875px;">Hiển thị</th>
+                                                    <th style="width: 91.1875px;">Thứ tự</th>
+                                                    <th style="width: 91.1875px;">Ngày tạo</th>
+                                                    <th style="width: 120.7px; text-align: center;">Cập nhật</th>
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th rowspan="1" colspan="1">ID</th>
+                                                    <th rowspan="1" colspan="1">Tên tin tức</th>
+                                                    <th rowspan="1" colspan="1">Lượt Like</th>
+                                                    <th rowspan="1" colspan="1">Mô tả nhỏ</th>
+                                                    <th rowspan="1" colspan="1">Hình ảnh</th>
+                                                    <th rowspan="1" colspan="1">Mô tả</th>
+                                                    <th rowspan="1" colspan="1">Chi tiết</th>
+                                                    <th rowspan="1" colspan="1">Tiêu đề</th>
+                                                    <th rowspan="1" colspan="1">Slogan</th>
+                                                    <th rowspan="1" colspan="1">SubMeta</th>
+                                                    <th rowspan="1" colspan="1">Meta</th>
+                                                    <th rowspan="1" colspan="1">Hiển thị</th>
+                                                    <th rowspan="1" colspan="1">Thứ tự</th>
+                                                    <th rowspan="1" colspan="1">Ngày tạo</th>
+                                                    <th rowspan="1" colspan="1" style="text-align: center;">Cập nhật</th>
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                @foreach (var News in Model)
+                                                {
+                                                    <tr role="row" class="odd">
+                                                        <td>@News.NewsId</td>
+                                                        <td>@News.NewsName</td>
+                                                        <td>@News.IsLike</td>
+                                                        <td>@(News.Script?.Length > 20 ? News.Script.Substring(0, 20) + "..." : News.Script)</td>
+                                                        <td>
+                                                            @if (News.Meta == "gioi-thieu")
+                                                            {
+                                                                <img src="~/img/gioithieu/@News.Img" alt="News Image" width="100" height="100" />
+                                                            }
+                                                            else if (News.Meta == "dich-vu")
+                                                            {
+                                                                <img src="~/img/service/@News.Img" alt="News Image" width="100" height="100" />
+                                                            }
+                                                            else if (News.Meta == "tin-tuc")
+                                                            {
+                                                                <img src="~/img/latestNews/@News.Img" alt="News Image" width="100" height="100" />
+                                                            }
+                                                            else if (News.Meta == "su-kien")
+                                                            {
+                                                                <img src="~/img/blogNew/@News.Img" alt="News Image" width="100" height="100" />
+                                                            }
+                                                        </td>
+                                                        <td>@(News.Descriptions?.Length > 20 ? News.Descriptions.Substring(0, 20) + "..." : News.Descriptions)</td>
+                                                        <td>@(News.Detail?.Length > 20 ? News.Detail.Substring(0, 20) + "..." : News.Detail)</td>
+                                                        <td>@(News.Title?.Length > 20 ? News.Title.Substring(0, 20) + "..." : News.Title)</td>
+                                                        <td>@(News.Slogan?.Length > 20 ? News.Slogan.Substring(0, 20) + "..." : News.Slogan)</td>
+                                                        <td>@News.subMeta</td>
+                                                        <td>@News.Meta</td>
+                                                        <td>@(News.Hide == 1 ? "Có" : "Không")</td>
+                                                        <td>@News.Order</td>
+                                                        <td>@(News.Datebegin.HasValue ? News.Datebegin.Value.ToString("dd/MM/yyyy") : "N/A")</td>
+                                                        <td>
+                                                            <div class="form-button-action">
+                                                                <button type="button" class="btn btn-link btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#viewNewsModal-@News.NewsId">
+                                                                    <i class="fa fa-exclamation-circle"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-link btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#editNewsModal-@News.NewsId">
+                                                                    <i class="fa fa-edit"></i>
+                                                                </button>
+                                                                <button type="button" class="btn btn-link btn-danger btn-lg" data-bs-toggle="modal" data-bs-target="#deleteNewsModal-@News.NewsId">
+                                                                    <i class="fa fa-times"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- END bảng dataTables -->
+
+                                                    <!-- Modal hiển thị thông tin chi tiết -->
+                                                    <div class="modal fade" id="viewNewsModal-@News.NewsId" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header border-0">
+                                                                    <h5 class="modal-title">Chi tiết tin tức - sự kiện</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p><strong>Tên tin tức - sự kiện:</strong> @News.NewsName</p>
+                                                                    <p><strong>Lượt thích:</strong> @News.IsLike</p>
+                                                                    <p><strong>Mô tả ngắn:</strong> @News.Script</p>
+                                                                    <p><strong>Hình ảnh:</strong>
+                                                                        @if (News.Meta == "gioi-thieu")
+                                                                        {
+                                                                            <img src="~/img/gioithieu/@News.Img" alt="News Image" width="100" height="100" />
+                                                                        }
+                                                                        else if (News.Meta == "dich-vu")
+                                                                        {
+                                                                            <img src="~/img/service/@News.Img" alt="News Image" width="100" height="100" />
+                                                                        }
+                                                                        else if (News.Meta == "tin-tuc")
+                                                                        {
+                                                                            <img src="~/img/latestNews/@News.Img" alt="News Image" width="100" height="100" />
+                                                                        }
+                                                                        else if (News.Meta == "su-kien")
+                                                                        {
+                                                                            <img src="~/img/blogNew/@News.Img" alt="News Image" width="100" height="100" />
+                                                                        }
+                                                                    </p>
+                                                                    <p><strong>Mô tả:</strong> @News.Descriptions</p>
+                                                                    <p><strong>Nội dung chi tiết:</strong> @Html.Raw(News.Detail)</p>
+                                                                    <p><strong>Tiêu đề:</strong> @News.Title</p>
+                                                                    <p><strong>Slogan:</strong> @News.Slogan</p>
+                                                                    <p><strong>Meta:</strong> @News.subMeta</p>
+                                                                    <p><strong>Meta:</strong> @News.Meta</p>
+                                                                    <p><strong>Hiển thị:</strong> @(News.Hide == 1 ? "Có" : "Không")</p>
+                                                                    <p><strong>Thứ tự:</strong> @News.Order</p>
+                                                                    <p><strong>Ngày tạo:</strong> @(News.Datebegin.HasValue ? News.Datebegin.Value.ToString("dd/MM/yyyy") : "N/A")</p>
+                                                                </div>
+                                                                <div class="modal-footer border-0">
+                                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Đóng</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END Modal hiển thị thông tin chi tiết -->
+                                                    <!-- Modal chỉnh sửa thông tin chi tiết -->
+                                                    <div class="modal fade" id="editNewsModal-@News.NewsId" tabindex="-1" role="dialog" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header border-0">
+                                                                    <h5 class="modal-title">Chỉnh sửa thông tin PT</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="/Admin/News/EditNews" method="post" enctype="multipart/form-data">
+                                                                        <input type="hidden" id="editNewsId" name="NewsId" value="@News.NewsId" />
+                                                                        <div class="row">
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Tên tin tức - sự kiện</label>
+                                                                                    <input id="editName-@News.NewsId" name="NewsName" type="text" class="form-control" value="@News.NewsName" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Mô tả ngắn</label>
+                                                                                    <input id="editScript" name="Script" type="text" class="form-control" value="@News.Script" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Hình ảnh</label>
+                                                                                    <!-- Hiển thị hình ảnh hiện tại -->
+                                                                                    <div>
+                                                                                        @if (!string.IsNullOrEmpty(News.Img))
+                                                                                        {
+                                                                                            @if (News.Meta == "gioi-thieu")
+                                                                                            {
+                                                                                                <img src="~/img/gioithieu/@News.Img" alt="News Image" width="100" height="100" />
+                                                                                            }
+                                                                                            else if (News.Meta == "dich-vu")
+                                                                                            {
+                                                                                                <img src="~/img/service/@News.Img" alt="News Image" width="100" height="100" />
+                                                                                            }
+                                                                                            else if (News.Meta == "tin-tuc")
+                                                                                            {
+                                                                                                <img src="~/img/latestNews/@News.Img" alt="News Image" width="100" height="100" />
+                                                                                            }
+                                                                                            else if (News.Meta == "su-kien")
+                                                                                            {
+                                                                                                <img src="~/img/blogNew/@News.Img" alt="News Image" width="100" height="100" />
+                                                                                            }
+                                                                                        }
+                                                                                    </div>
+                                                                                    <!-- Input file cho người dùng chọn hình ảnh mới -->
+                                                                                    <input id="editImage" name="Img" type="file" class="form-control" accept="image/*">
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Tiêu đề</label>
+                                                                                    <input id="editTitle" name="Title" type="text" class="form-control" value="@News.Title" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="comment">Mô tả</label>
+                                                                                    <textarea id="editDescriptions" name="Descriptions" class="form-control" rows="4">@News.Descriptions</textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group">
+                                                                                    <label for="comment">Nội dung chi tiết</label>
+                                                                                    <textarea id="editDetail-@News.NewsId" name="Detail" class="form-control" rows="10">@Html.Raw(News.Detail)</textarea>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-sm-12">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Slogan</label>
+                                                                                    <input id="editSlogan" name="Slogan" type="text" class="form-control" value="@News.Slogan" required>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>SubMeta</label>
+                                                                                    <input id="editSubMeta-@News.NewsId" name="SubMeta" type="text" class="form-control" value="@News.subMeta" readonly>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Chọn mục hiển thị</label>
+                                                                                    <select name="editMeta" class="form-control">
+                                                                                        <option value="gioi-thieu" @(News.Meta.Equals("gioi-thieu") ? "selected" : "")>Giới thiệu</option>
+                                                                                        <option value="dich-vu" @(News.Meta.Equals("dich-vu") ? "selected" : "")>Dịch vụ</option>
+                                                                                        <option value="tin-tuc" @(News.Meta.Equals("tin-tuc") ? "selected" : "")>Tin tức</option>
+                                                                                        <option value="su-kien" @(News.Meta.Equals("su-kien") ? "selected" : "")>Sự kiện</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Hiển thị</label>
+                                                                                    <select name="Hide" class="form-control">
+                                                                                        <option value="1" @(News.Hide == 1 ? "selected" : "")>Có</option>
+                                                                                        <option value="0" @(News.Hide == 0 ? "selected" : "")>Không</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <div class="form-group form-group">
+                                                                                    <label>Thứ tự</label>
+                                                                                    <input id="editOrder" name="Order" type="number" class="form-control" value="@News.Order">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer border-0">
+                                                                            <button type="submit" class="btn btn-primary">
+                                                                                Thêm
+                                                                            </button>
+                                                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                                                Đóng
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END Modal chỉnh sửa thông tin chi tiết -->
+                                                    <!-- Modal Xác nhận xóa -->
+                                                    <div class="modal fade" id="deleteNewsModal-@News.NewsId" tabindex="-1" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="deleteNewsModalLabel">Xác nhận xóa</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    Bạn có chắc chắn muốn xóa menu: **@News.NewsName**?
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                                                                    <form method="post" action="/Admin/News/Delete">
+                                                                        <input type="hidden" name="NewsId" value="@News.NewsId" />
+                                                                        <button type="submit" class="btn btn-danger">Xóa</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!-- END Modal Xác nhận xóa -->
+                                                }
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END bảng dataTables -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    // ckeditor
+    @section Scripts {
+        <script src="~/admin/ckfinder/ckfinder.js"></script>
+        <script src="~/admin/ckeditor/ckeditor.js"></script>
+        <script>
+            if (document.getElementById('addDetail')) {
+                CKEDITOR.replace('addDetail', {
+                    filebrowserBrowseUrl: '/admin/ckfinder/ckfinder.html',
+                    filebrowserUploadUrl: '/Admin/News/ckfinder/connector',
+                    filebrowserImageUploadUrl: '/Admin/News/ckfinder/connector'
+                });
+            }
+        </script>
+        @foreach (var news in Model)
+        {
+            <script>
+                if (document.getElementById('editDetail-@news.NewsId')) {
+                    CKEDITOR.replace('editDetail-@news.NewsId', {
+                        filebrowserBrowseUrl: '/admin/ckfinder/ckfinder.html',
+                        filebrowserUploadUrl: '/Admin/News/ckfinder/connector',
+                        filebrowserImageUploadUrl: '/Admin/News/ckfinder/connector'
+                    });
+                }
+            </script>
+        }
+    }
+
+    
+    <script>
+        // thao tác trên table
+        $(function () {
+            // Khởi tạo DataTable và lưu vào biến table
+            var table = $('#add-row').DataTable({
+                "pageLength": 10,
+                "lengthMenu": [10, 25, 50, 100],
+                "language": {
+                    "lengthMenu": "Hiển thị _MENU_ dòng",
+                    "zeroRecords": "Không có dữ liệu",
+                    "info": "Hiển thị từ _START_ đến _END_ trên tổng số _TOTAL_ dòng",
+                    "infoEmpty": "Không có dữ liệu",
+                    "infoFiltered": "(tìm từ tổng cộng _MAX_ dòng)",
+                    "search": "Tìm kiếm:",
+                    "paginate": {
+                        "previous": "Trước",
+                        "next": "Sau"
+                    }
+                }
+            });
+            // Tạo dropdown và thêm vào hàng chứa ô tìm kiếm
+            var metaFilter = `
+                <select id="filter-meta" class="custom-filter">
+                    <option value="">Tất cả</option>
+                    <option value="gioi-thieu">Giới thiệu</option>
+                    <option value="dich-vu">Dịch vụ</option>
+                    <option value="tin-tuc">Tin tức</option>
+                    <option value="su-kien">Sự kiện</option>
+                </select>`;
+            $('#add-row_filter').append(metaFilter);
+
+            // Sự kiện thay đổi của dropdown filter
+            $('#filter-meta').on('change', function () {
+                var metaValue = $(this).val(); // Lấy giá trị từ dropdown
+
+                // Kiểm tra nếu giá trị không rỗng (lựa chọn "Tất cả")
+                if (metaValue) {
+                    table.column(10).search(metaValue).draw(); // Lọc theo cột Meta (cột thứ 11 - chỉ số 10)
+                } else {
+                    table.column(10).search('').draw(); // Nếu không chọn gì, xóa bộ lọc
+                }
+            });
+        });
+
+        // Lắng nghe sự kiện thay đổi trên ô nhập tên
+        function generateSlug(inputId, outputId) {
+            document.getElementById(inputId).addEventListener('input', function () {
+                var nameValue = this.value;
+
+                // Chuyển thành dạng slug
+                var metaValue = nameValue
+                    .normalize('NFD') // Chuẩn hóa chuỗi thành dạng ký tự cơ bản
+                    .replace(/[\u0300-\u036f]/g, '') // Loại bỏ dấu (cho tiếng Việt, ký tự Unicode)
+                    .toLowerCase() // Chuyển chữ thường
+                    .replace(/\s+/g, '-') // Thay khoảng trắng thành dấu gạch ngang
+                    .replace(/[^a-z0-9\-]/g, '') // Loại bỏ ký tự không hợp lệ
+                    .trim(); // Loại bỏ khoảng trắng thừa đầu/cuối
+
+                // Cập nhật giá trị cho ô Meta
+                document.getElementById(outputId).value = metaValue;
+            });
+        }
+        // Áp dụng cho ID 'addName' và 'addMeta'
+        generateSlug('addName', 'addSubMeta');
+
+    </script>
+
+    // Gọi hàm generateSlug cho mỗi cặp input `Name` và `Meta` trong vòng lặp
+    @foreach (var news in Model)
+    {
+        <script>
+            generateSlug('editName-@news.NewsId', 'editSubMeta-@news.NewsId');
+        </script>
+    }
+}

@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Gym Admin</title>
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no"
+          name="viewport" />
+    <link rel="icon"
+          href="~/admin/assets/img/kaiadmin/favicon.ico"
+          type="image/x-icon" />
+    <!-- Thêm Font Awesome từ CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <!-- Fonts and icons -->
+    <script src="~/admin/assets/js/plugin/webfont/webfont.min.js"></script>
+    <!-- Thêm CSS của DataTables -->
+    <link href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Thêm JS của DataTables -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { families: ["Public Sans:300,400,500,600,700"] },
+            custom: {
+                families: [
+                    "Font Awesome 5 Solid",
+                    "Font Awesome 5 Regular",
+                    "Font Awesome 5 Brands",
+                    "simple-line-icons",
+                ],
+                urls: ["~/admin/assets/css/fonts.min.css"],
+            },
+            active: function () {
+                sessionStorage.fonts = true;
+            },
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="~/admin/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/admin/assets/css/plugins.min.css" />
+    <link rel="stylesheet" href="~/admin/assets/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
+    <link rel="stylesheet" href="~/admin/assets/css/demo.css" />
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar" data-background-color="dark">
+            <div class="sidebar-logo">
+                <!-- Logo Header -->
+                <div class="logo-header" data-background-color="dark">
+                    <a href="/Admin" class="logo">
+                        <img src="~/img/logo.png"
+                             alt="navbar brand"
+                             class="navbar-brand"
+                             height="20" />
+                    </a>
+                    <div class="nav-toggle">
+                        <button class="btn btn-toggle toggle-sidebar">
+                            <i class="gg-menu-right"></i>
+                        </button>
+                        <button class="btn btn-toggle sidenav-toggler">
+                            <i class="gg-menu-left"></i>
+                        </button>
+                    </div>
+                    <button class="topbar-toggler more">
+                        <i class="gg-more-vertical-alt"></i>
+                    </button>
+                </div>
+                <!-- End Logo Header -->
+            </div>
+            <div class="sidebar-wrapper scrollbar scrollbar-inner">
+                <div class="sidebar-content">
+                    <ul class="nav nav-secondary">
+                        <!-- Mục Dashboard -->
+                        <li class="nav-item">
+                            <a href="/Admin">
+                                <i class="fas fa-home"></i>
+                                <p>Trang chủ</p>
+                            </a>
+                        </li>
+                        <!-- Mục Menu -->
+                        <li class="nav-item">
+                            <a href="/Admin/Menu">
+                                <i class="fas fa-table"></i>
+                                <p>Quản lí Menu</p>
+                            </a>
+                        </li>
+                        <!-- Mục Class -->
+                        <li class="nav-item">
+                            <a href="/Admin/Class">
+                                <i class="fas fa-table"></i>
+                                <p>Quản lí lớp tập</p>
+                            </a>
+                        </li>
+                        <!-- Mục Rank -->
+                        <li class="nav-item">
+                            <a href="/Admin/Rank">
+                                <i class="fas fa-table"></i>
+                                <p>Quản lí phân hạng</p>
+                            </a>
+                        </li>
+                        <!-- Mục PT -->
+                        <li class="nav-item">
+                            <a href="/Admin/PT">
+                                <i class="fas fa-table"></i>
+                                <p>Quản lí PT</p>
+                            </a>
+                        </li>
+                        <!-- Mục New -->
+                        <li class="nav-item">
+                            <a href="/Admin/News">
+                                <i class="fas fa-table"></i>
+                                <p>Quản lí tin tức - sự kiện</p>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="main-panel">
+            <div class="main-header">
+                <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom" data-background-color="dark">
+                    <div class="container-fluid">
+                        <!-- Thêm phần tử chứa chữ Chào mừng bên trái -->
+                        <span class="navbar-text fw-bold fs-3">
+                            <a style="color: white;">Chào mừng bạn đến với trang quản trị</a>
+                        </span>
+
+                        <div class="d-flex align-items-center">
+                            <!-- Hình đại diện -->
+                            <div class="avatar-sm me-2">
+                                <img src="~/img/users/user.jpg" alt="..." class="avatar-img rounded-circle" />
+                            </div>
+                            <!-- Chữ "Đăng xuất" -->
+                            <span class="profile-username fw-bold logout-hover">
+                                <a href="@Url.Action("Logout", "Accounts")" style="color: white;">Đăng xuất</a>
+                            </span>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        
+            <!-- Header End -->
+            <div class="container">
+                <main b-whcehfvert>
+                    @RenderBody()
+                </main>
+            </div>
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="container-fluid d-flex justify-content-between">
+                    <div class="copyright">
+                        2024, made with <i class="fa fa-heart heart text-danger"></i>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Thêm Bootstrap JS và jQuery vào cuối body -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+        <script src="~/admin/assets/js/core/jquery-3.7.1.min.js"></script>
+        <script src="~/admin/assets/js/core/popper.min.js"></script>
+        <script src="~/admin/assets/js/core/bootstrap.min.js"></script>
+        <!-- jQuery Scrollbar -->
+        <script src="~/admin/assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+        <!-- Chart JS -->
+        <script src="~/admin/assets/js/plugin/chart.js/chart.min.js"></script>
+
+        <!-- jQuery Sparkline -->
+        <script src="~/admin/assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+        <!-- Chart Circle -->
+        <script src="admin/assets/js/plugin/chart-circle/circles.min.js"></script>
+
+        <!-- Datatables -->
+        <script src="~/admin/assets/js/plugin/datatables/datatables.min.js"></script>
+
+        <!-- Bootstrap Notify -->
+        <script src="~/admin/assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js"></script>
+
+        <!-- jQuery Vector Maps -->
+        <script src="~/admin/assets/js/plugin/jsvectormap/jsvectormap.min.js"></script>
+        <script src="~/admin/assets/js/plugin/jsvectormap/world.js"></script>
+
+        <!-- Sweet Alert -->
+        <script src="~/admin/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+        <!-- Kaiadmin JS -->
+        <script src="~/admin/assets/js/kaiadmin.min.js"></script>
+
+        <!-- Kaiadmin DEMO methods, don't include it in your project! -->
+        <script src="~/admin/assets/js/setting-demo.js"></script>
+        <script src="~/admin/assets/js/demo.js"></script>
+        <script>
+            $("#lineChart").sparkline([102, 109, 120, 99, 110, 105, 115], {
+                type: "line",
+                height: "70",
+                width: "100%",
+                lineWidth: "2",
+                lineColor: "#177dff",
+                fillColor: "rgba(23, 125, 255, 0.14)",
+            });
+
+            $("#lineChart2").sparkline([99, 125, 122, 105, 110, 124, 115], {
+                type: "line",
+                height: "70",
+                width: "100%",
+                lineWidth: "2",
+                lineColor: "#f3545d",
+                fillColor: "rgba(243, 84, 93, .14)",
+            });
+
+            $("#lineChart3").sparkline([105, 103, 123, 100, 95, 105, 115], {
+                type: "line",
+                height: "70",
+                width: "100%",
+                lineWidth: "2",
+                lineColor: "#ffa534",
+                fillColor: "rgba(255, 165, 52, .14)",
+            });
+        </script>
+    <!-- Đoạn script cần thêm -->
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

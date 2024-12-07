@@ -1,0 +1,61 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Dịch vụ";
+}
+<!-- Breadcrumb Section Begin -->
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Breadcrumb Section End -->
+<!-- Services Section Begin -->
+<section class="services-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Chúng tôi cung cấp cho bạn</span>
+                    <h2>DỊCH VỤ VÀ GIẢI TRÍ</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @await Component.InvokeAsync("GetNewService")
+        </div>
+    </div>
+</section>
+<!-- Services Section End -->
+<!-- Banner Section Begin -->
+@if (!User.Identity.IsAuthenticated)
+{
+    <section class="banner-section set-bg" data-setbg=@Url.Content("~/img/banner-bg.jpg")>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="bs-text">
+                        <h2>ĐĂNG KÝ TÀI KHOẢN NGAY!</h2>
+                        <div class="bt-tips">Để nhận nhiều ưu đãi hấp dẫn</div>
+                        <a href="/dang-ky" class="primary-btn  btn-normal">Đăng ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<!-- Banner Section End -->
+<!-- Pricing Section Begin -->
+<section class="pricing-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="section-title">
+                    <span>Kế hoạch</span>
+                    <h2>Hãy chọn kế hoạch tập luyện phù hợp nhất</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            @await Component.InvokeAsync("GetRankIndex")
+        </div>
+    </div>
+</section>
+<!-- Pricing Section End -->

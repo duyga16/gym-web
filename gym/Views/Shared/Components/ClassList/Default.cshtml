@@ -1,0 +1,16 @@
+﻿@model IEnumerable<gym.Models.Class>
+@{
+    <div class="so-categories">
+        <h5 class="title">Danh mục</h5>
+        <ul>
+            @foreach (var classItem in Model)
+            {
+                <li>
+                    <a href="@Url.Action("Details", "Classes", new { meta = classItem.Meta})">
+                        @classItem.NameClass <span>Số lượng đăng ký @classItem.CountUser</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}

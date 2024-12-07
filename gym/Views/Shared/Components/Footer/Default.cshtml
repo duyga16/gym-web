@@ -1,0 +1,58 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model IEnumerable<gym.Models.Menu>
+@{
+    <div class="col-lg-2 col-md-3 col-sm-6">
+        <div class="fs-widget">
+            <h4>Chủ đề</h4>
+            <ul>
+                @foreach (var menu in Model.Where(m => m.Order < 4)) 
+                {
+                    <li><a href="/@menu.Meta">@menu.MenuName</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-6">
+        <div class="fs-widget">
+            <h4>Tiện ích</h4>
+            <ul>
+                @foreach (var menu in Model.Where(m => m.Order >= 4 && m.Order < 7)) 
+                {
+                    <li><a href="/@menu.Meta">@menu.MenuName</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-6">
+        <div class="fs-widget">
+            <h4>Hỗ trợ</h4>
+            <ul>
+                @foreach (var menu in Model.Where(m => m.Order >= 7 && m.Order < 10)) 
+                {
+                    if (User.Identity.IsAuthenticated && @menu.MenuId==8)
+                    {
+                        <li><a href="/@menu.Meta">Đăng xuất</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/@menu.Meta">@menu.MenuName</a></li>
+
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-6">
+        <div class="fs-widget">
+            <h4>Cá nhân</h4>
+            <ul>
+                @foreach (var menu in Model.Where(m => m.Order >= 10 && m.Order < 13))
+                {
+                    <li><a href="/@menu.Meta">@menu.MenuName</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+}

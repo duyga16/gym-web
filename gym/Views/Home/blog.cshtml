@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Tin tức - Sự kiện";
+}
+
+@await Component.InvokeAsync("Breadcrumb")
+<!-- Breadcrumb Section End -->
+<!-- Blog Section Begin -->
+<section class="blog-section spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 p-0">
+                @await Component.InvokeAsync("GetBlog")
+                <div class="blog-pagination">
+                    <a href="#">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-8 p-0">
+                <div class="sidebar-option">
+                    <div class="so-latest">
+                        <h5 class="title">Tin mới nhất</h5>
+                        @await Component.InvokeAsync("GetPost")
+                    </div>
+                    <div class="so-tags">
+                        <h5 class="title">Các lớp phổ biến</h5>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "body-building" })">Body building</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "yoga" })">Yoga</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "weight-loss" })">Weightloss</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "fitness" })">Fitness</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "cardio" })">Cardio</a>
+                        <a href="@Url.Action("Details", "Classes", new { meta = "boxing" })">Boxing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Blog Section End -->

@@ -1,0 +1,83 @@
+﻿@model IEnumerable<gym.Models.Rankuser>
+@{
+    var errorMessage = TempData["ErrorMessage"] as string;
+    var successMessage = TempData["SuccessMessage"] as string;
+}
+@{
+    @foreach (var rank in Model)
+    {
+        <div class="col-lg-4 col-md-8">
+            <div class="ps-item">
+                <h3>@rank.MembershipType</h3>
+                <div class="pi-price">
+                    <h2>@String.Format("{0:N0}", @rank.Price) VND</h2>
+                    <span>@rank.RankType</span>
+                </div>
+                <ul>
+                    <li style="text-align: justify;">@rank.Details</li>
+                </ul>
+                <form id="rankForm_@rank.RankId" method="post" asp-controller="Home" asp-action="rankUser">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="rankID" value="@rank.RankId" />
+                    <button type="button" class="primary-btn pricing-btn" onclick="confirmRegistration(@rank.RankId)">Đăng ký ngay</button>
+                </form>
+            </div>
+        </div>
+    }
+}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.25/dist/sweetalert2.min.js"></script>
+<script>
+    function confirmRegistration(rankId) {
+        // Kiểm tra xem người dùng đã đăng nhập chưa thông qua Session hoặc Cookie (có thể dùng ajax để kiểm tra)
+        var isLoggedIn = @User.Identity.IsAuthenticated.ToString().ToLower(); // Từ Razor, lấy giá trị IsAuthenticated
+        if (!isLoggedIn) {
+            Swal.fire({
+                title: "Chưa đăng nhập",
+                text: "Bạn cần đăng nhập để đăng ký gói thành viên này!",
+                icon: "warning",
+                confirmButtonText: "OK"
+            });
+            return; // Nếu chưa đăng nhập, dừng hành động
+        }
+
+        Swal.fire({
+            title: "Xác nhận đăng ký",
+            text: "Bạn có chắc chắn muốn đăng ký hạng thành viên này không?",
+            icon: "question",
+            showCancelButton: true,
+            confirmButtonText: "Đồng ý",
+            cancelButtonText: "Hủy bỏ"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var form = document.getElementById("rankForm_" + rankId);
+                if (form) {
+                    form.submit();
+                }
+            }
+        });
+    }
+    // Hiển thị thông báo lỗi (nếu có)
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <text>
+                Swal.fire({
+                    icon: 'error',
+                title: 'Thất bại!',
+                text: '@Html.Raw(errorMessage)'
+                                });
+        </text>
+    }
+
+        // Hiển thị thông báo thành công (nếu có)
+    @if (!string.IsNullOrEmpty(successMessage))
+    {
+        <text>
+                Swal.fire({
+                    icon: 'success',
+                title: 'Thành công!',
+                text: '@Html.Raw(successMessage)'
+                                });
+        </text>
+    }
+</script>
+
